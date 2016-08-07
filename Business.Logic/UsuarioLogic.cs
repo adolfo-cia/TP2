@@ -8,6 +8,7 @@ using Data.Database;
 
 namespace Business.Logic
 {
+    //HOLA
     public class UsuarioLogic : BusinessLogic
     {
         private Data.Database.UsuarioAdapter _UsuarioData;
