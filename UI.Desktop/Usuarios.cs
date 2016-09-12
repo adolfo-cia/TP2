@@ -44,5 +44,10 @@ namespace UI.Desktop
         {
             this.Close();
         }
+
+        private void tcUsuarios_BottomToolStripPanel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
