@@ -33,5 +33,24 @@ namespace UI.Desktop
         {
 
         }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UsuarioDesktop_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
+        public Usuario UsuarioActual { get; set; }
+
+        public UsuarioDesktop(ModoForm modo):this();
+
+        public UsuarioDesktop(int ID, ModoForm modo):this();
+
+
     }
 }
