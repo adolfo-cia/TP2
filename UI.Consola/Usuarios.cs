@@ -9,17 +9,67 @@ namespace UI.Consola
 {
     public class Usuarios
     {
-        public Usuarios ()
-        {
-            UsuarioNegocio = new UsuarioLogic();
-        }
-
         private Business.Logic.UsuarioLogic _UsuarioNegocio;
         public Business.Logic.UsuarioLogic UsuarioNegocio
         {
             get { return _UsuarioNegocio; }
             set { _UsuarioNegocio = value; }
-            
+
+        }
+
+        public Usuarios ()
+        {
+            UsuarioNegocio = new UsuarioLogic();
+        }
+
+
+        public void menu()
+        {
+
+            bool repetir = true;
+            do
+            {
+                int op;
+                System.Console.WriteLine(
+                    "Elija una opcion: \n 1- Listado General" +
+                    "\n 2- Consulta \n 3-Agregar \n 4-Modificar \n 5-Eliminar \n 6-Salir");
+                op = Int32.Parse(System.Console.ReadLine());
+                switch (op)
+                {
+                    case 1:
+                        this.ListadoGeneral();
+                        break;
+
+                    case 2:
+                        this.Consultar();
+                        break;
+
+                    case 3:
+                        this.Agregar();
+                        break;
+
+                    case 4:
+                        this.Modificar();
+                        break;
+
+                    case 5:
+                        this.Eliminar();
+                        break;
+
+                    case 6:
+                        repetir = false;
+                        break;
+
+                    default:
+                        System.Console.WriteLine("sorete ingresa bien");
+                        break;
+                }
+
+            } while (repetir);
+
+
+
+
         }
 
         public void Consultar()
@@ -161,54 +211,7 @@ namespace UI.Consola
                 Console.ReadKey();
             }
         }
-        public void menu ()
-        {
-            
-            bool repetir=true;
-            do
-            {
-                int op;
-                System.Console.WriteLine(
-                    "Elija una opcion: \n 1- Listado General" +
-                    "\n 2- Consulta \n 3-Agregar \n 4-Modificar \n 5-Eliminar \n 6-Salir");
-                op = Int32.Parse(System.Console.ReadLine());
-                switch (op)
-                {
-                    case 1:
-                        this.ListadoGeneral();
-                        break;
-
-                    case 2:
-                        this.Consultar();
-                        break;
-
-                    case 3:
-                        this.Agregar();
-                        break;
-
-                    case 4:
-                        this.Modificar();
-                        break;
-
-                    case 5:
-                        this.Eliminar();
-                        break;
-
-                    case 6:
-                        repetir = false;
-                        break;
-
-                    default:
-                        System.Console.WriteLine("sorete ingresa bien"); 
-                        break;
-                }
-
-            } while (repetir);
-
-    
-
-            
-        }
+        
 
     }
 }

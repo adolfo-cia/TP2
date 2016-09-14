@@ -25,12 +25,30 @@ namespace Business.Logic
 
         public List<Usuario> GetAll()
         {
-            return UsuarioData.GetAll();
+            try
+            {
+                return UsuarioData.GetAll();
+            }
+            catch (Exception ex)
+            {
+                
+                throw ex;
+            }
+            
         }
 
-        public Business.Entities.Usuario GetOne(int id)
+        public Usuario GetOne(int id)  //al tener el using Business.Entites no hace falta anteponerlo, quedaria asi--> public Usuario GetOne(int id){}
         {
-            return UsuarioData.GetOne(id);
+            try
+            {
+                return UsuarioData.GetOne(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         public void Delete(int id)
