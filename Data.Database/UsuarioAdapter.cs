@@ -111,7 +111,7 @@ namespace Data.Database
                 this.CloseConnection();
             }
             //devolvemos la lista de usuarios
-            return Usuarios;
+            return usuarios;
         }
         public Usuario GetOne(int ID)
         {

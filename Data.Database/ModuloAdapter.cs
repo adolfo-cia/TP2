@@ -85,7 +85,7 @@ namespace Data.Database
             {
                 this.Update(m);
             }
-            e.State = BusinessEntity.States.Unmodified;
+            m.State = BusinessEntity.States.Unmodified;
         }
 
         protected void Insert(Modulo m)
