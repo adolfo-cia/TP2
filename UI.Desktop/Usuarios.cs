@@ -17,21 +17,38 @@ namespace UI.Desktop
         public Usuarios()
         {
             InitializeComponent();
+            this.dgvUsuarios.AutoGenerateColumns = false;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void toolStripContainer1_TopToolStripPanel_Click(object sender, EventArgs e)
         {
 
         }
 
         public void Listar()
         {
-            UsuarioLogic u1 = new UsuarioLogic();
-            this.dgvUsuarios.DataSource = u1.GetAll();
+            UsuarioLogic ul = new UsuarioLogic();
+            this.dgvUsuarios.DataSource = ul.GetAll();
         }
 
+        private void Usuarios_Load(object sender, EventArgs e)
+        {
+            this.Listar();
+        }
 
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            this.Listar();
+        }
 
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
+        private void tcUsuarios_BottomToolStripPanel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
