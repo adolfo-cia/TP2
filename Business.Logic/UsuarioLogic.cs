@@ -11,17 +11,20 @@ namespace Business.Logic
     //HOLA asdasd
     public class UsuarioLogic : BusinessLogic
     {
-        private Data.Database.UsuarioAdapter _UsuarioData;
-        
-        public UsuarioLogic()
-        {
-            UsuarioData = new UsuarioAdapter();    
-        }
-        public Data.Database.UsuarioAdapter UsuarioData
+        private UsuarioAdapter _UsuarioData;  //private Data.Database.UsuarioAdapter _UsuarioData;
+        public UsuarioAdapter UsuarioData
         {
             get{ return _UsuarioData; }
             set { _UsuarioData = value; }
+        } //public Data.Database.UsuarioAdapter UsuarioData
+        public UsuarioLogic()
+        {
+            UsuarioData = new UsuarioAdapter();
         }
+
+
+
+
 
         public List<Usuario> GetAll()
         {
@@ -36,7 +39,6 @@ namespace Business.Logic
             }
             
         }
-
         public Usuario GetOne(int id)  //al tener el using Business.Entites no hace falta anteponerlo, quedaria asi--> public Usuario GetOne(int id){}
         {
             try
@@ -50,19 +52,27 @@ namespace Business.Logic
             }
             
         }
-
-        public void Delete(int id)
-        {
-            UsuarioData.Delete(id);
-        }
-
-        public void Save(Business.Entities.Usuario usuario)
+        public void Save(Usuario usuario)
         {
             UsuarioData.Save(usuario);
         }
+        public void Delete(int id)
+        {
+            try
+            {
+                UsuarioData.Delete(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+        }
+
+        
 
 
 
-
-}
+    }
 }
