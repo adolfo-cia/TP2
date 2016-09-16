@@ -47,10 +47,26 @@ namespace UI.Desktop
 
         public Usuario UsuarioActual { get; set; }
 
-        public UsuarioDesktop(ModoForm modo):this();
+        public UsuarioDesktop(ModoForm modo) : this()
+        {
+            //falta setear a modo form en el modo enviadp
+            modo = ModoForm.Alta;
+        }
 
-        public UsuarioDesktop(int ID, ModoForm modo):this();
+        public UsuarioDesktop(int ID, ModoForm modo) : this()
+        {
+            UsuarioLogic Usuario = new UsuarioLogic();
+            UsuarioActual = Usuario.GetOne(ID);
+            this.MapearDeDatos();
+            //14 Falta setear el texto del botón Aceptar en
+            // función del Modo del formulario 
 
+           
+        }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
