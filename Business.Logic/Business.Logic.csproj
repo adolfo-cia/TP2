@@ -41,11 +41,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLogic.cs" />
+    <Compile Include="AlumnoInscripcionLogic.cs" />
+    <Compile Include="DocenteCursoLogic.cs" />
+    <Compile Include="ComisionLogic.cs" />
     <Compile Include="MateriaLogic.cs" />
+    <Compile Include="CursoLogic.cs" />
     <Compile Include="PlanLogic.cs" />
     <Compile Include="ModuloLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EspecialidadLogic.cs" />
+    <Compile Include="PersonaLogic.cs" />
     <Compile Include="UsuarioLogic.cs" />
   </ItemGroup>
   <ItemGroup>

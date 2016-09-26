@@ -11,6 +11,10 @@ namespace Business.Entities
 {
     public class DocenteCurso : BusinessEntity
     {
+        public enum TipoCargo { Titular, Auxiliar }
+
+        public TipoCargo Cargo { get; set; }
+
         private int _IDCurso;
         public int IDCurso
         {

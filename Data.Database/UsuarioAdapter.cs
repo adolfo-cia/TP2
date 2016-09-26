@@ -72,7 +72,7 @@ namespace Data.Database
 
                 //creamos un objeto SqlCommand q sera la sentencia SQL q vamos a ejecutar contra la DB
                 //sqlConn, en este caso, guarda la info declarada en el metodo Adapter, q contiene los datos para realizar la conexion contra la DB
-                SqlCommand cmdUsuarios = new SqlCommand("select * from usuarios", sqlConn);
+                SqlCommand cmdUsuarios = new SqlCommand("SELECT * FROM personas", sqlConn);
 
                 //instanciamos un objeto DataReader q sera el q recuperara los datos de la DB
                 SqlDataReader drUsuarios = cmdUsuarios.ExecuteReader();
@@ -90,9 +90,7 @@ namespace Data.Database
                     usr.NombreUsuario = (string)drUsuarios["nombre_usuario"];
                     usr.Clave = (string)drUsuarios["clave"];
                     usr.Habilitado = (bool)drUsuarios["habilitado"];
-                    usr.Nombre = (string)drUsuarios["nombre"];
-                    usr.Apellido = (string)drUsuarios["apellido"];
-                    usr.Email = (string)drUsuarios["email"];
+                    
                     //agregamos la entidad a la lista de entidades q devolveremos
                     usuarios.Add(usr);
                 }
@@ -119,18 +117,15 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmdUsuarios = new SqlCommand("select * from usuarios where id_usuario = @id", sqlConn);
+                SqlCommand cmdUsuarios = new SqlCommand("select * from personas where id_persona = @id", sqlConn);
                 cmdUsuarios.Parameters.Add("@id", SqlDbType.Int).Value = ID;
                 SqlDataReader drUsuarios = cmdUsuarios.ExecuteReader();
                 if (drUsuarios.Read())
                 {
-                    usr.ID = (int)drUsuarios["id_usuario"];
+                    usr.ID = (int)drUsuarios["id_persona"];
                     usr.NombreUsuario = (string)drUsuarios["nombre_usuario"];
                     usr.Clave = (string)drUsuarios["clave"];
                     usr.Habilitado = (bool)drUsuarios["habilitado"];
-                    usr.Nombre = (string)drUsuarios["nombre"];
-                    usr.Apellido = (string)drUsuarios["apellido"];
-                    usr.Email = (string)drUsuarios["email"];
                 }
                 drUsuarios.Close();
             }
@@ -168,19 +163,18 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmdSave = new SqlCommand(@"INSERT INTO usuarios  
-                                                        (nombre_usuario, clave, habilitado, nombre, apellido, email)
+                SqlCommand cmdSave = new SqlCommand(@"INSERT INTO personas  
+                                                        (nombre_usuario, clave, habilitado, tipo_persona)
                                                     VALUES
-                                                        (@nombre_usuario, @clave, @habilitado, @nombre, @apellido, @email)
+                                                        (@nombre_usuario, @clave, @habilitado, @tipo_persona)
                                                     SELECT @@indentity" //esta linea es para recuperar el ID que asigno el SQL automaticamente
                                                     , sqlConn);
 
                 cmdSave.Parameters.Add("@nombre_usuario", SqlDbType.VarChar, 50).Value = usuario.NombreUsuario;
                 cmdSave.Parameters.Add("@clave", SqlDbType.VarChar, 50).Value = usuario.Clave;
                 cmdSave.Parameters.Add("@habilitado", SqlDbType.Bit).Value = usuario.Habilitado;
-                cmdSave.Parameters.Add("@nombre", SqlDbType.VarChar, 50).Value = usuario.Nombre;
-                cmdSave.Parameters.Add("@apellido", SqlDbType.VarChar, 50).Value = usuario.Apellido;
-                cmdSave.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = usuario.Email;
+                cmdSave.Parameters.Add("@tipo_persona", SqlDbType.VarChar, 50).Value = Persona.TipoPersona.Administrativo;
+
                 usuario.ID = Decimal.ToInt32((decimal)cmdSave.ExecuteScalar()); //asi se obtiene el ID que asigno al DB automaticamente
 
             }
@@ -203,19 +197,15 @@ namespace Data.Database
                                                         nombre_usuario = @nombre_usuario, 
                                                         clave = @clave,
                                                         habilitado = @habilitado, 
-                                                        nombre = @nombre, 
-                                                        apellido = @apellido, 
-                                                        email = @email
-                                                    WHERE id_usuario = @id"
+                                                        tipo_persona = @tipo_persona
+                                                    WHERE id_persona = @id"
                                                     , sqlConn);
 
                 cmdSave.Parameters.Add("@id", SqlDbType.Int).Value = usuario.ID;
                 cmdSave.Parameters.Add("@nombre_usuario", SqlDbType.VarChar, 50).Value = usuario.NombreUsuario;
                 cmdSave.Parameters.Add("@clave", SqlDbType.VarChar, 50).Value = usuario.Clave;
                 cmdSave.Parameters.Add("@habilitado", SqlDbType.Bit).Value = usuario.Habilitado;
-                cmdSave.Parameters.Add("@nombre", SqlDbType.VarChar, 50).Value = usuario.Nombre;
-                cmdSave.Parameters.Add("@apellido", SqlDbType.VarChar, 50).Value = usuario.Apellido;
-                cmdSave.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = usuario.Email;
+              
                 cmdSave.ExecuteNonQuery();
             }
             catch(Exception ex)
@@ -236,8 +226,9 @@ namespace Data.Database
                 //abro la conexion
                 this.OpenConnection();
                 //creamos la sentencia sql y asignamos un valor al parametro
-                SqlCommand cmdDelete = new SqlCommand("DELETE FROM usuarios WHERE id_usuario = @id", sqlConn);
+                SqlCommand cmdDelete = new SqlCommand("DELETE FROM personas WHERE id_persona = @id AND tipo_persona = @tipo_persona", sqlConn);
                 cmdDelete.Parameters.Add("@id", SqlDbType.Int).Value = ID;
+                cmdDelete.Parameters.Add("@tipo_persona", SqlDbType.VarChar, 50).Value = Persona.TipoPersona.Administrativo;
 
                 //ejecutamos la sentencia sql
                 cmdDelete.ExecuteNonQuery();

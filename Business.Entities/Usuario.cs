@@ -22,28 +22,7 @@ namespace Business.Entities
             get { return _Clave; }
             set { _Clave = value; }
         }
-
-        private string _Nombre;
-        public string Nombre
-        {
-            get { return _Nombre; }
-            set { _Nombre = value; }
-        }
-
-        private string _Apellido;
-        public string Apellido 
-        {
-            get { return _Apellido; }
-            set { _Apellido = value; }
-        }
-
-        private string _Email;
-        public string Email
-        {
-            get { return _Email; }
-            set { _Email = value; }
-        }
-
+               
         private bool _Habilitado;
         public bool Habilitado
         {

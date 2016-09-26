@@ -9,8 +9,12 @@ using System.Threading.Tasks;
 
 namespace Business.Entities
 {
-    public class Personas : BusinessEntity
+    public class Persona : BusinessEntity
     {
+        public enum TipoPersona { Alumno, Docente, Administrativo}
+
+        public TipoPersona Tipo { get; set; }
+
         private string _Nombre;
         public string Nombre
         {
@@ -66,7 +70,12 @@ namespace Business.Entities
             set { _Telefono = value; }
         }
 
-        
+        /// agrego datos de usuario
+        public string NombreUsuario { get; set; }
+        public string Clave { get; set; }
+        public bool Habilitado { get; set; }
+
+
 
 
 
