@@ -13,7 +13,7 @@ namespace Business.Logic
         private CursoAdapter CursoData { get; set; }
         public CursoLogic()
         {
-            CursoData = new CrusoAdapter();
+            CursoData = new CursoAdapter();
         }
 
 
@@ -46,9 +46,9 @@ namespace Business.Logic
             }
             
         }
-        public void Save(Curso plan)
+        public void Save(Curso c)
         {
-            CursoData.Save(plan);
+            CursoData.Save(c);
         }
         public void Delete(int id)
         {
