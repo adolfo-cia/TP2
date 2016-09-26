@@ -92,7 +92,7 @@ namespace Data.Database
             }
             else if (dc.State == BusinessEntity.States.Modified)
             {
-                this.Update(c);
+                this.Update(dc);
             }
             dc.State = BusinessEntity.States.Unmodified;
         }
@@ -138,7 +138,7 @@ namespace Data.Database
                                                     WHERE id_dictado = @id"
                                                     , sqlConn);
 
-                cmdSave.Parameters.Add("@id", SqlDbType.Int).Value = c.ID;
+                cmdSave.Parameters.Add("@id", SqlDbType.Int).Value = dc.ID;
                 cmdSave.Parameters.Add("@id_curso", SqlDbType.Int).Value = dc.IDCurso;
                 cmdSave.Parameters.Add("@id_docente", SqlDbType.Int).Value = dc.IDDocente;
                 cmdSave.Parameters.Add("@cargo", SqlDbType.VarChar, 50).Value = dc.Cargo;
