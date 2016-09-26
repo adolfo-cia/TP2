@@ -81,6 +81,46 @@ namespace Data.Database
             
             return c;
         }
+        public Curso GetOne(int mate, int comi)
+        {
+            Curso c = new Curso();
+
+            try
+            {
+                OpenConnection();
+
+                SqlCommand cmdCurso = new SqlCommand(@"SELECT * 
+                                                        FROM cursos 
+                                                        WHERE @mate = id_materia AND @comi = id_comision", sqlConn);
+
+                cmdCurso.Parameters.Add("@mate", SqlDbType.Int).Value = mate;
+                cmdCurso.Parameters.Add("@comi", SqlDbType.Int).Value = comi;
+                
+                SqlDataReader drCurso = cmdCurso.ExecuteReader();
+
+                if (drCurso.Read())
+                {
+                    c.ID = (int)drCurso["id_curso"];
+                    c.IDMateria = (int)drCurso["id_materia"];
+                    c.IDComision = (int)drCurso["id_comision"];
+                    c.Cupo = (int)drCurso["cupo"];
+                    c.AnioCalendario = (int)drCurso["anio_calendario"];
+
+                    drCurso.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error al recuperar datos del Curso de la DB", e);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+
+            return c;
+        }
+
         public void Save(Curso c)
         {
             if (c.State == BusinessEntity.States.Deleted)

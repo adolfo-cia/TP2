@@ -29,7 +29,7 @@ namespace Business.Logic
             catch (Exception ex)
             {
                 
-                throw ex;
+                throw;
             }
             
         }
@@ -42,10 +42,23 @@ namespace Business.Logic
             catch (Exception ex)
             {
 
-                throw ex;
+                throw ;
             }
-            
         }
+
+        public Curso GetOne(int mate, int comi)
+        {
+            try
+            {
+                return CursoData.GetOne(mate, comi);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
         public void Save(Curso c)
         {
             CursoData.Save(c);
@@ -59,7 +72,7 @@ namespace Business.Logic
             catch (Exception ex)
             {
 
-                throw ex;
+                throw;
             }
             
         }
