@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Business.Logic;
+
 
 namespace UI.Desktop
 {
@@ -22,18 +24,7 @@ namespace UI.Desktop
 
         public virtual void MapearDeDatos()
         {
-            this.txtID.Text = this.UsuarioActual.ID.ToString();
-            this.chkHabilitado.Checked = this.UsuarioActual.Habilitado;      
-            this.txtNombre.Text = this.UsuarioActual.Nombre;
-            this.txtApellido.Text = this.UsuarioActual.Apellido;
-            this.txtEmail.Text = this.UsuarioActual.Email;
-            this.txtUsuario.Text = this.UsuarioActual.Usuario;
-            this.txtClave.Text = this.UsuarioActual.Clave;
-            this.txtConfirmarClave.Text = this.UsuarioActual.COnfirmarClave;
-
-            //14.Dentro del mismo método setearemos el texto del botón Aceptar
-            // falta hacerlo
-
+            
         }
 
         public virtual void MapearADatos()
@@ -43,11 +34,12 @@ namespace UI.Desktop
 
         public virtual void GuardarCambios()
         {
-
+     
         }
 
         public virtual bool Validar()
         {
+                         
             return false;
         }
 
