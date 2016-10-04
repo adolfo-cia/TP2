@@ -32,9 +32,9 @@ namespace Data.Database
                     p.Apellido = (string)drPersonas["apellido"];
                     p.Email = (string)drPersonas["email"];
                     p.Direccion = (string)drPersonas["direccion"];
-                    p.FechaNacimiento = (DateTime)drPersonas["fecha_nac"];
-                    p.IDPlan = (int)drPersonas["id_plan"];
-                    p.Legajo = (int)drPersonas["legajo"];
+                    p.FechaNacimiento = (DateTime?)drPersonas["fecha_nac"];
+                    p.IDPlan = (int?)drPersonas["id_plan"];
+                    p.Legajo = (int?)drPersonas["legajo"];
                     p.Telefono = (string)drPersonas["telefono"];
                     p.Tipo = (Persona.TipoPersona)drPersonas["tipo_persona"];
                     
@@ -61,7 +61,7 @@ namespace Data.Database
         }
         
         //trae una persona segun por el campo q se quiera buscar       
-        public Persona GetOne(int ID = 0, int legajo = 0, string nick ="")
+        public Persona GetOne(int ID = 0, int? legajo = 0, string nick ="")
         {
             string query = "";
             SqlParameter param = new SqlParameter();
@@ -114,9 +114,9 @@ namespace Data.Database
                     p.Apellido = (string)drPersonas["apellido"];
                     p.Email = (string)drPersonas["email"];
                     p.Direccion = (string)drPersonas["direccion"];
-                    p.FechaNacimiento = (DateTime)drPersonas["fecha_nac"];
-                    p.IDPlan = (int)drPersonas["id_plan"];
-                    p.Legajo = (int)drPersonas["legajo"];
+                    p.FechaNacimiento = (DateTime?)drPersonas["fecha_nac"];
+                    p.IDPlan = (int?)drPersonas["id_plan"];
+                    p.Legajo = (int?)drPersonas["legajo"];
                     p.Telefono = (string)drPersonas["telefono"];
                     p.Tipo = (Persona.TipoPersona)drPersonas["tipo_persona"];
                     p.Clave = (string)drPersonas["clave"];
@@ -179,8 +179,8 @@ namespace Data.Database
                 cmdSave.Parameters.Add("@telefono", SqlDbType.VarChar, 50).Value = p.Telefono;
                 cmdSave.Parameters.Add("@fecha_nac", SqlDbType.DateTime ).Value = p.FechaNacimiento;
                 cmdSave.Parameters.Add("@legajo", SqlDbType.Int).Value = p.Legajo;
-                cmdSave.Parameters.Add("@tipo_persona", SqlDbType.VarChar, 50).Value = p.Tipo;
-                cmdSave.Parameters.Add("@id_plan", SqlDbType.Int, 50).Value = p.IDPlan;
+                cmdSave.Parameters.Add("@tipo_persona", SqlDbType.Int).Value = (int)p.Tipo;
+                cmdSave.Parameters.Add("@id_plan", SqlDbType.Int ).Value = p.IDPlan;
                 cmdSave.Parameters.Add("@nombre_usuario", SqlDbType.VarChar, 50).Value = p.NombreUsuario;
                 cmdSave.Parameters.Add("@clave", SqlDbType.VarChar, 50).Value = p.Clave;
                 cmdSave.Parameters.Add("@habilitado", SqlDbType.Bit).Value = p.Habilitado;
@@ -233,8 +233,8 @@ namespace Data.Database
                 cmdSave.Parameters.Add("@telefono", SqlDbType.VarChar, 50).Value = p.Telefono;
                 cmdSave.Parameters.Add("@fecha_nac", SqlDbType.DateTime).Value = p.FechaNacimiento;
                 cmdSave.Parameters.Add("@legajo", SqlDbType.Int).Value = p.Legajo;
-                cmdSave.Parameters.Add("@tipo_persona", SqlDbType.VarChar, 50).Value = p.Tipo;
-                cmdSave.Parameters.Add("@id_plan", SqlDbType.Int, 50).Value = p.IDPlan;
+                cmdSave.Parameters.Add("@tipo_persona", SqlDbType.Int ).Value = (int)p.Tipo;
+                cmdSave.Parameters.Add("@id_plan", SqlDbType.Int ).Value = p.IDPlan;
                 cmdSave.Parameters.Add("@nombre_usuario", SqlDbType.VarChar, 50).Value = p.NombreUsuario;
                 cmdSave.Parameters.Add("@clave", SqlDbType.VarChar, 50).Value = p.Clave;
                 cmdSave.Parameters.Add("@habilitado", SqlDbType.Bit).Value = p.Habilitado;

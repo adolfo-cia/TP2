@@ -53,6 +53,11 @@ namespace UI.Desktop
             this.Notificar(this.Text, mensaje, botones, icono);
         }
 
+        public void Notificar(Exception e)
+        {
+            Notificar("Error inesperado", e.Message + "\nIntentelo nuevamente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         private void ApplicationForm_Load(object sender, EventArgs e)
         {
 

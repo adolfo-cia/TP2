@@ -43,21 +43,21 @@ namespace Business.Entities
             set { _Direccion = value; }
         }
 
-        private DateTime _FechaNacimiento;
-        public DateTime FechaNacimiento
+        private DateTime? _FechaNacimiento;
+        public DateTime? FechaNacimiento
         {
             get { return _FechaNacimiento; }
             set { _FechaNacimiento = value; }
         }
-        private int _Legajo;
-        public int Legajo
+        private int? _Legajo;
+        public int? Legajo
         {
             get { return _Legajo; }
             set { _Legajo = value; }
         }
 
-        private int _IDPlan;
-        public int IDPlan
+        private int? _IDPlan;
+        public int? IDPlan
         {
             get { return _IDPlan; }
             set { _IDPlan = value; }

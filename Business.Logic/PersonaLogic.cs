@@ -46,7 +46,7 @@ namespace Business.Logic
             }
             
         }
-        public Persona GetOneByLeg(int legajo)
+        public Persona GetOneByLeg(int? legajo)
         {
             try
             {
