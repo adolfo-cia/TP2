@@ -15,11 +15,25 @@ namespace UI.Desktop
 {
     public partial class UsuarioDesktop : ApplicationForm
     {
+        private List<Plan> _planes;    
         public UsuarioDesktop()
         {
             InitializeComponent();
-        }
 
+            CargarTiposPersonas();
+            //CargarPlanes();
+        }
+        private void CargarTiposPersonas()
+        {
+            cbTipo.DataSource = Enum.GetValues(typeof(Persona.TipoPersona));
+        }
+        private void CargarPlanes()
+        {
+            _planes = new PlanLogic().GetAll();
+            cbPlan.DataSource = _planes;
+            cbPlan.DisplayMember = "Descripcion";
+            cbPlan.ValueMember = "ID";
+        }
         private void lblNombre_Click(object sender, EventArgs e)
         {
 
