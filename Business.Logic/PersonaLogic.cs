@@ -93,15 +93,17 @@ namespace Business.Logic
                         validated = false;
                         error += "Legajo ya ha sido usado\n";
                     }
-                    if (validated == true)
-                    {
-                        PersonaData.Save(persona);
-                    }
-                    else
-                    {
-                        throw new Exception(error);
-                    }
                 }
+
+                if (validated == true)
+                {
+                    PersonaData.Save(persona);
+                }
+                else
+                {
+                    throw new Exception(error);
+                }
+                
             }
             catch (Exception e)
             {

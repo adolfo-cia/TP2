@@ -174,43 +174,40 @@
             this.tsUsuarios.Dock = System.Windows.Forms.DockStyle.None;
             this.tsUsuarios.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsbNuevo,
-            this.tsbEliminar,
-            this.tsbEditar});
+            this.tsbEditar,
+            this.tsbEliminar});
             this.tsUsuarios.Location = new System.Drawing.Point(10, 0);
             this.tsUsuarios.Name = "tsUsuarios";
-            this.tsUsuarios.Size = new System.Drawing.Size(112, 25);
+            this.tsUsuarios.Size = new System.Drawing.Size(199, 25);
             this.tsUsuarios.TabIndex = 0;
             // 
             // tsbNuevo
             // 
-            this.tsbNuevo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbNuevo.Image = ((System.Drawing.Image)(resources.GetObject("tsbNuevo.Image")));
             this.tsbNuevo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbNuevo.Name = "tsbNuevo";
-            this.tsbNuevo.Size = new System.Drawing.Size(23, 22);
-            this.tsbNuevo.Text = "toolStripButton1";
+            this.tsbNuevo.Size = new System.Drawing.Size(49, 22);
+            this.tsbNuevo.Text = "Add";
             this.tsbNuevo.ToolTipText = "Nuevo";
             this.tsbNuevo.Click += new System.EventHandler(this.tsbNuevo_Click);
             // 
             // tsbEliminar
             // 
-            this.tsbEliminar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbEliminar.Image = ((System.Drawing.Image)(resources.GetObject("tsbEliminar.Image")));
             this.tsbEliminar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbEliminar.Name = "tsbEliminar";
-            this.tsbEliminar.Size = new System.Drawing.Size(23, 22);
-            this.tsbEliminar.Text = "toolStripButton1";
+            this.tsbEliminar.Size = new System.Drawing.Size(60, 22);
+            this.tsbEliminar.Text = "Delete";
             this.tsbEliminar.ToolTipText = "Eliminar";
             this.tsbEliminar.Click += new System.EventHandler(this.tsbEliminar_Click);
             // 
             // tsbEditar
             // 
-            this.tsbEditar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.tsbEditar.Image = ((System.Drawing.Image)(resources.GetObject("tsbEditar.Image")));
             this.tsbEditar.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbEditar.Name = "tsbEditar";
-            this.tsbEditar.Size = new System.Drawing.Size(23, 22);
-            this.tsbEditar.Text = "Editar";
+            this.tsbEditar.Size = new System.Drawing.Size(47, 22);
+            this.tsbEditar.Text = "Edit";
             this.tsbEditar.Click += new System.EventHandler(this.tsbEditar_Click);
             // 
             // Usuarios
