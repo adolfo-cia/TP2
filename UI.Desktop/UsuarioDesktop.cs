@@ -15,7 +15,9 @@ namespace UI.Desktop
 {
     public partial class UsuarioDesktop : ApplicationForm
     {
+        public Usuario UsuarioActual { get; set; }
         private List<Plan> _planes;    
+
         public UsuarioDesktop()
         {
             InitializeComponent();
@@ -23,6 +25,7 @@ namespace UI.Desktop
             CargarTiposPersonas();
             //CargarPlanes();
         }
+
         private void CargarTiposPersonas()
         {
             cbTipo.DataSource = Enum.GetValues(typeof(Persona.TipoPersona));
@@ -34,33 +37,6 @@ namespace UI.Desktop
             cbPlan.DisplayMember = "Descripcion";
             cbPlan.ValueMember = "ID";
         }
-        private void lblNombre_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void lblHabilitado_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void UsuarioDesktop_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
-        public Usuario UsuarioActual { get; set; }
 
         public UsuarioDesktop(ModoForm modo) : this()
         {
@@ -122,12 +98,12 @@ namespace UI.Desktop
             if (txtID.TextLength > 0)
                 UsuarioActual.ID = int.Parse(txtID.Text);
 
-            this.chkHabilitado.Checked = this.UsuarioActual.Habilitado;
-            this.txtNombre.Text = this.UsuarioActual.Nombre;
-            this.txtApellido.Text = this.UsuarioActual.Apellido;
-            this.txtEmail.Text = this.UsuarioActual.Email;
-            this.txtUsuario.Text = this.UsuarioActual.NombreUsuario;
-            this.txtClave.Text = this.UsuarioActual.Clave;
+            this.UsuarioActual.Habilitado = this.chkHabilitado.Checked;
+            this.UsuarioActual.Nombre = this.txtNombre.Text;
+            this.UsuarioActual.Apellido = this.txtApellido.Text;
+            this.UsuarioActual.Email = this.txtEmail.Text;
+            this.UsuarioActual.NombreUsuario = this.txtUsuario.Text;
+            this.UsuarioActual.Clave = this.txtClave.Text;
 
             if (Modo == ModoForm.Baja)
             {
@@ -151,11 +127,11 @@ namespace UI.Desktop
             string mensaje = "";
             bool bandera = true;
 
-            if (this.txtID.Text == null)
-            {
-                bandera = false;
-                mensaje += "No ingresó ningun ID\n";
-            }
+            //if (this.txtID.Text == null)
+            //{
+            //    bandera = false;
+            //    mensaje += "No ingresó ningun ID\n";
+            //}
 
             if (this.txtNombre.Text == null)
             {
@@ -231,16 +207,11 @@ namespace UI.Desktop
             
         
      
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             if (Modo == ModoForm.Alta || Modo == ModoForm.Modificacion)
             {
-                if (Validar() == true)
+                if (Validar())
                 {
                     GuardarCambios();
                     this.Close();

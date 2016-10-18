@@ -110,14 +110,15 @@ namespace Data.Database
                 if (drPersonas.Read())
                 {
                     p.ID = (int)drPersonas["id_persona"];
-                    p.Nombre = (string)drPersonas["nombre"];
-                    p.Apellido = (string)drPersonas["apellido"];
-                    p.Email = (string)drPersonas["email"];
-                    p.Direccion = (string)drPersonas["direccion"];
-                    p.FechaNacimiento = (DateTime?)drPersonas["fecha_nac"];
-                    p.IDPlan = (int?)drPersonas["id_plan"];
-                    p.Legajo = (int?)drPersonas["legajo"];
-                    p.Telefono = (string)drPersonas["telefono"];
+
+                    p.Nombre = (string)((drPersonas["nombre"] != null) ? "" : drPersonas["nombre"]);
+                    p.Apellido = (string)((drPersonas["apellido"] != null) ? "" : drPersonas["apellido"]) ;
+                    p.Email = (string)((drPersonas["email"] != null) ? "" : drPersonas["email"]) ;
+                    p.Direccion = (string)((drPersonas["direccion"] != null) ? "" : drPersonas["direccion"]) ;
+                    p.FechaNacimiento = (DateTime?)((drPersonas["fecha_nac"] != null) ? null : drPersonas["fecha_nac"]) ;
+                    p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]) ;
+                    p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]) ;
+                    p.Telefono = (string)((drPersonas["telefono"] != null) ? "" : drPersonas["telefono"]) ;
                     p.Tipo = (Persona.TipoPersona)drPersonas["tipo_persona"];
                     p.Clave = (string)drPersonas["clave"];
                     p.Habilitado = (bool)drPersonas["habilitado"];

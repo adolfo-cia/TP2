@@ -50,7 +50,6 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.lblLegajo = new System.Windows.Forms.Label();
             this.txtLegajo = new System.Windows.Forms.TextBox();
-            this.lblFeNac = new System.Windows.Forms.Label();
             this.cbDia = new System.Windows.Forms.ComboBox();
             this.cbMes = new System.Windows.Forms.ComboBox();
             this.cbAnio = new System.Windows.Forms.ComboBox();
@@ -58,9 +57,10 @@
             this.txtTel = new System.Windows.Forms.TextBox();
             this.lblPlan = new System.Windows.Forms.Label();
             this.cbPlan = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblSeparador = new System.Windows.Forms.Label();
             this.lblTipo = new System.Windows.Forms.Label();
             this.cbTipo = new System.Windows.Forms.ComboBox();
+            this.lblFeNac = new System.Windows.Forms.Label();
             this.dtpFeNac = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -114,7 +114,6 @@
             this.lblNombre.Size = new System.Drawing.Size(44, 13);
             this.lblNombre.TabIndex = 7;
             this.lblNombre.Text = "Nombre";
-            this.lblNombre.Click += new System.EventHandler(this.lblNombre_Click);
             // 
             // txtConfirmarClave
             // 
@@ -227,7 +226,7 @@
             this.tableLayoutPanel1.Controls.Add(this.txtTel, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.lblPlan, 0, 7);
             this.tableLayoutPanel1.Controls.Add(this.cbPlan, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label1, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.lblSeparador, 0, 8);
             this.tableLayoutPanel1.Controls.Add(this.lblUsuario, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.txtUsuario, 1, 9);
             this.tableLayoutPanel1.Controls.Add(this.lblClave, 0, 10);
@@ -257,7 +256,6 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(409, 344);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // lblApellido
             // 
@@ -268,7 +266,7 @@
             this.lblApellido.Size = new System.Drawing.Size(44, 13);
             this.lblApellido.TabIndex = 15;
             this.lblApellido.Text = "Apellido";
-            this.lblApellido.Click += new System.EventHandler(this.label1_Click);
+            
             // 
             // lblDire
             // 
@@ -344,16 +342,6 @@
             this.txtLegajo.Size = new System.Drawing.Size(96, 20);
             this.txtLegajo.TabIndex = 18;
             // 
-            // lblFeNac
-            // 
-            this.lblFeNac.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.lblFeNac.AutoSize = true;
-            this.lblFeNac.Location = new System.Drawing.Point(15, 136);
-            this.lblFeNac.Name = "lblFeNac";
-            this.lblFeNac.Size = new System.Drawing.Size(84, 13);
-            this.lblFeNac.TabIndex = 23;
-            this.lblFeNac.Text = "Fec. Nacimiento";
-            // 
             // cbDia
             // 
             this.cbDia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -428,16 +416,16 @@
             this.cbPlan.Size = new System.Drawing.Size(96, 21);
             this.cbPlan.TabIndex = 26;
             // 
-            // label1
+            // lblSeparador
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label1.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.label1, 4);
-            this.label1.Location = new System.Drawing.Point(3, 223);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(403, 13);
-            this.label1.TabIndex = 29;
-            this.label1.Text = "---------------------------------------------------------------------------------" +
+            this.lblSeparador.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblSeparador.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.lblSeparador, 4);
+            this.lblSeparador.Location = new System.Drawing.Point(3, 223);
+            this.lblSeparador.Name = "lblSeparador";
+            this.lblSeparador.Size = new System.Drawing.Size(403, 13);
+            this.lblSeparador.TabIndex = 29;
+            this.lblSeparador.Text = "---------------------------------------------------------------------------------" +
     "---------------------------------------------------";
             // 
             // lblTipo
@@ -461,6 +449,16 @@
             this.cbTipo.Size = new System.Drawing.Size(96, 21);
             this.cbTipo.TabIndex = 28;
             // 
+            // lblFeNac
+            // 
+            this.lblFeNac.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.lblFeNac.AutoSize = true;
+            this.lblFeNac.Location = new System.Drawing.Point(15, 136);
+            this.lblFeNac.Name = "lblFeNac";
+            this.lblFeNac.Size = new System.Drawing.Size(84, 13);
+            this.lblFeNac.TabIndex = 23;
+            this.lblFeNac.Text = "Fec. Nacimiento";
+            // 
             // dtpFeNac
             // 
             this.dtpFeNac.CustomFormat = "dd-MM-yyyy";
@@ -478,7 +476,6 @@
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "UsuarioDesktop";
             this.Text = "UsuarioDesktop";
-            this.Load += new System.EventHandler(this.UsuarioDesktop_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -516,7 +513,7 @@
         private System.Windows.Forms.ComboBox cbPlan;
         private System.Windows.Forms.Label lblTipo;
         private System.Windows.Forms.ComboBox cbTipo;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSeparador;
         private System.Windows.Forms.ComboBox cbMes;
         private System.Windows.Forms.ComboBox cbAnio;
         private System.Windows.Forms.DateTimePicker dtpFeNac;

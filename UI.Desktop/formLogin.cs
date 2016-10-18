@@ -32,7 +32,7 @@ namespace UI.Desktop
                     UsuarioActual = new PersonaLogic().GetOneByNick(this.txtUsuario.Text);
                     if (UsuarioActual != null && UsuarioActual.Clave == txtPassword.Text)
                     {
-                        Notificar("Login", "Bienvenido " + UsuarioActual.NombreUsuario + @"\n\n ༼ つ ◕_◕ ༽つ ", MessageBoxButtons.OK, MessageBoxIcon.None);
+                        Notificar("Login", "Bienvenido " + UsuarioActual.NombreUsuario + @"   ༼ つ ◕_◕ ༽つ ", MessageBoxButtons.OK, MessageBoxIcon.None);
                         this.DialogResult = DialogResult.OK;
                     }
                     else if (UsuarioActual != null || UsuarioActual.Habilitado == false)
