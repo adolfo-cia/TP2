@@ -33,7 +33,7 @@ namespace Data.Database
                     p.Apellido = (string)((drPersonas["apellido"] != null) ? "" : drPersonas["apellido"]);
                     p.Email = (string)((drPersonas["email"] != null) ? "" : drPersonas["email"]);
                     p.Direccion = (string)((drPersonas["direccion"] != null) ? "" : drPersonas["direccion"]);
-                    p.FechaNacimiento = (DateTime?)((drPersonas["fecha_nac"] != null) ? null : drPersonas["fecha_nac"]);
+                    p.FechaNacimiento = (DateTime)drPersonas["fecha_nac"];
                     p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]);
                     p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]);
                     p.Telefono = (string)((drPersonas["telefono"] != null) ? "" : drPersonas["telefono"]);
@@ -81,7 +81,7 @@ namespace Data.Database
                     p.Apellido = (string)((drPersonas["apellido"] != null) ? "" : drPersonas["apellido"]);
                     p.Email = (string)((drPersonas["email"] != null) ? "" : drPersonas["email"]);
                     p.Direccion = (string)((drPersonas["direccion"] != null) ? "" : drPersonas["direccion"]);
-                    p.FechaNacimiento = (DateTime?)((drPersonas["fecha_nac"] != null) ? null : drPersonas["fecha_nac"]);
+                    p.FechaNacimiento = (DateTime)drPersonas["fecha_nac"];
                     p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]);
                     p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]);
                     p.Telefono = (string)((drPersonas["telefono"] != null) ? "" : drPersonas["telefono"]);
@@ -164,7 +164,7 @@ namespace Data.Database
                     p.Apellido = (string)((drPersonas["apellido"] != null) ? "" : drPersonas["apellido"]);
                     p.Email = (string)((drPersonas["email"] != null) ? "" : drPersonas["email"]);
                     p.Direccion = (string)((drPersonas["direccion"] != null) ? "" : drPersonas["direccion"]);
-                    p.FechaNacimiento = (DateTime?)((drPersonas["fecha_nac"] != null) ? null : drPersonas["fecha_nac"]);
+                    p.FechaNacimiento = (DateTime)drPersonas["fecha_nac"];
                     p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]);
                     p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]);
                     p.Telefono = (string)((drPersonas["telefono"] != null) ? "" : drPersonas["telefono"]);

@@ -43,8 +43,8 @@ namespace Business.Entities
             set { _Direccion = value; }
         }
 
-        private DateTime? _FechaNacimiento;
-        public DateTime? FechaNacimiento
+        private DateTime _FechaNacimiento;
+        public DateTime FechaNacimiento
         {
             get { return _FechaNacimiento; }
             set { _FechaNacimiento = value; }
