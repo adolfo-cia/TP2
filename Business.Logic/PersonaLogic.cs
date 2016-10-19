@@ -33,6 +33,19 @@ namespace Business.Logic
             }
             
         }
+        public List<Persona> GetAll()
+        {
+            try
+            {
+                return PersonaData.GetAll();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
         public Persona GetOneByID(int ID)  
         {
             try

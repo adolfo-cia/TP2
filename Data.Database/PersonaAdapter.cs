@@ -28,20 +28,21 @@ namespace Data.Database
                 {
                     Persona p = new Persona();
                     p.ID = (int)drPersonas["id_persona"];
-                    p.Nombre = (string)drPersonas["nombre"];
-                    p.Apellido = (string)drPersonas["apellido"];
-                    p.Email = (string)drPersonas["email"];
-                    p.Direccion = (string)drPersonas["direccion"];
-                    p.FechaNacimiento = (DateTime?)drPersonas["fecha_nac"];
-                    p.IDPlan = (int?)drPersonas["id_plan"];
-                    p.Legajo = (int?)drPersonas["legajo"];
-                    p.Telefono = (string)drPersonas["telefono"];
+
+                    p.Nombre = (string)((drPersonas["nombre"] != null) ? "" : drPersonas["nombre"]);
+                    p.Apellido = (string)((drPersonas["apellido"] != null) ? "" : drPersonas["apellido"]);
+                    p.Email = (string)((drPersonas["email"] != null) ? "" : drPersonas["email"]);
+                    p.Direccion = (string)((drPersonas["direccion"] != null) ? "" : drPersonas["direccion"]);
+                    p.FechaNacimiento = (DateTime?)((drPersonas["fecha_nac"] != null) ? null : drPersonas["fecha_nac"]);
+                    p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]);
+                    p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]);
+                    p.Telefono = (string)((drPersonas["telefono"] != null) ? "" : drPersonas["telefono"]);
                     p.Tipo = (Persona.TipoPersona)drPersonas["tipo_persona"];
-                    
-                    p.NombreUsuario = (string)drPersonas["nombre_usuario"];
                     p.Clave = (string)drPersonas["clave"];
                     p.Habilitado = (bool)drPersonas["habilitado"];
-                    
+                    p.NombreUsuario = (string)drPersonas["nombre_usuario"];
+                    //p.CambiaClave = (int)((drPersonas["cambia_clave"]!= null) ? null : drPersonas["cambia_clave"]);
+
                     personas.Add(p);
                 }
 
@@ -59,7 +60,55 @@ namespace Data.Database
             }
             return personas;
         }
-        
+        public List<Persona> GetAll()
+        {
+
+
+            List<Persona> personas = new List<Persona>();
+            try
+            {
+                this.OpenConnection();
+                SqlCommand cmdPersonas = new SqlCommand(@"SELECT * 
+                                                        FROM personas", sqlConn);
+                SqlDataReader drPersonas = cmdPersonas.ExecuteReader();
+
+                while (drPersonas.Read())
+                {
+                    Persona p = new Persona();
+                    p.ID = (int)drPersonas["id_persona"];
+
+                    p.Nombre = (string)((drPersonas["nombre"] != null) ? "" : drPersonas["nombre"]);
+                    p.Apellido = (string)((drPersonas["apellido"] != null) ? "" : drPersonas["apellido"]);
+                    p.Email = (string)((drPersonas["email"] != null) ? "" : drPersonas["email"]);
+                    p.Direccion = (string)((drPersonas["direccion"] != null) ? "" : drPersonas["direccion"]);
+                    p.FechaNacimiento = (DateTime?)((drPersonas["fecha_nac"] != null) ? null : drPersonas["fecha_nac"]);
+                    p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]);
+                    p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]);
+                    p.Telefono = (string)((drPersonas["telefono"] != null) ? "" : drPersonas["telefono"]);
+                    p.Tipo = (Persona.TipoPersona)drPersonas["tipo_persona"];
+                    p.Clave = (string)drPersonas["clave"];
+                    p.Habilitado = (bool)drPersonas["habilitado"];
+                    p.NombreUsuario = (string)drPersonas["nombre_usuario"];
+                    //p.CambiaClave = (int)((drPersonas["cambia_clave"]!= null) ? null : drPersonas["cambia_clave"]);
+
+                    personas.Add(p);
+                }
+
+                drPersonas.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Exception ExcepcionManejada = new Exception("Error al recuperar lista de Personas de la DB", ex);
+                throw ExcepcionManejada;
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return personas;
+        }
+
         //trae una persona segun por el campo q se quiera buscar       
         public Persona GetOne(int ID = 0, int? legajo = 0, string nick ="")
         {
@@ -112,18 +161,18 @@ namespace Data.Database
                     p.ID = (int)drPersonas["id_persona"];
 
                     p.Nombre = (string)((drPersonas["nombre"] != null) ? "" : drPersonas["nombre"]);
-                    p.Apellido = (string)((drPersonas["apellido"] != null) ? "" : drPersonas["apellido"]) ;
-                    p.Email = (string)((drPersonas["email"] != null) ? "" : drPersonas["email"]) ;
-                    p.Direccion = (string)((drPersonas["direccion"] != null) ? "" : drPersonas["direccion"]) ;
-                    p.FechaNacimiento = (DateTime?)((drPersonas["fecha_nac"] != null) ? null : drPersonas["fecha_nac"]) ;
-                    p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]) ;
-                    p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]) ;
-                    p.Telefono = (string)((drPersonas["telefono"] != null) ? "" : drPersonas["telefono"]) ;
+                    p.Apellido = (string)((drPersonas["apellido"] != null) ? "" : drPersonas["apellido"]);
+                    p.Email = (string)((drPersonas["email"] != null) ? "" : drPersonas["email"]);
+                    p.Direccion = (string)((drPersonas["direccion"] != null) ? "" : drPersonas["direccion"]);
+                    p.FechaNacimiento = (DateTime?)((drPersonas["fecha_nac"] != null) ? null : drPersonas["fecha_nac"]);
+                    p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]);
+                    p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]);
+                    p.Telefono = (string)((drPersonas["telefono"] != null) ? "" : drPersonas["telefono"]);
                     p.Tipo = (Persona.TipoPersona)drPersonas["tipo_persona"];
                     p.Clave = (string)drPersonas["clave"];
                     p.Habilitado = (bool)drPersonas["habilitado"];
                     p.NombreUsuario = (string)drPersonas["nombre_usuario"];
-                    //p.CambiaClave = (int)drPersonas["cambia_clave"];
+                    //p.CambiaClave = (int)((drPersonas["cambia_clave"]!= null) ? null : drPersonas["cambia_clave"]);
                 }
                 drPersonas.Close();
             }

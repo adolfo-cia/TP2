@@ -15,7 +15,7 @@ namespace UI.Desktop
 {
     public partial class UsuarioDesktop : ApplicationForm
     {
-        public Usuario UsuarioActual { get; set; }
+        private Persona PersonaActual { get; set; }
         private List<Plan> _planes;    
 
         public UsuarioDesktop()
@@ -46,28 +46,41 @@ namespace UI.Desktop
         public UsuarioDesktop(int ID, ModoForm modo) : this()
         {
             Modo = modo;
-            UsuarioLogic Usuario = new UsuarioLogic();
-            UsuarioActual = Usuario.GetOne(ID);
-            this.MapearDeDatos();           
+            try
+            {
+                PersonaActual = new PersonaLogic().GetOneByID(ID);
+                this.MapearDeDatos();
+            }
+            catch (Exception ex)
+            {
+
+                Notificar(ex);
+            }
+                       
         }
 
         public override void MapearDeDatos()
         {
 
-            this.txtID.Text = this.UsuarioActual.ID.ToString();
-            this.chkHabilitado.Checked = this.UsuarioActual.Habilitado;
-            this.txtNombre.Text = this.UsuarioActual.Nombre;
-            this.txtApellido.Text = this.UsuarioActual.Apellido;
-            this.txtEmail.Text = this.UsuarioActual.Email;
-            this.txtUsuario.Text = this.UsuarioActual.NombreUsuario;
-            this.txtClave.Text = this.UsuarioActual.Clave;
+            this.txtID.Text = this.PersonaActual.ID.ToString();
+            this.txtNombre.Text = this.PersonaActual.Nombre;
+            this.txtApellido.Text = this.PersonaActual.Apellido;
+            this.txtEmail.Text = this.PersonaActual.Email;
+            this.txtLegajo.Text = this.PersonaActual.Legajo.ToString();
+            this.dtpFeNac.Value = (DateTime)this.PersonaActual.FechaNacimiento;
+            this.txtDire.Text = this.PersonaActual.Direccion;
+            this.cbPlan.SelectedValue = this.PersonaActual.IDPlan;
+            this.cbTipo.SelectedValue = this.PersonaActual.Tipo;
+
+            this.txtUsuario.Text = this.PersonaActual.NombreUsuario;
+            this.txtClave.Text = this.PersonaActual.Clave;
+            this.chkHabilitado.Checked = this.PersonaActual.Habilitado;
 
             //cambiamos el texto del boton aceptar según corresponda
             if (Modo == ModoForm.Alta || Modo == ModoForm.Modificacion)
             {
                 btnAceptar.Text = "Guardar";
-
-            }
+            }   
             else if (Modo == ModoForm.Baja)
             {
                             
@@ -84,39 +97,51 @@ namespace UI.Desktop
         {
             if (Modo == ModoForm.Alta)
             {
-                Usuario us = new Usuario();
-                UsuarioActual = us;
-                UsuarioActual.State = BusinessEntity.States.New;
+                Persona per = new Persona();
+                PersonaActual = per;
+                PersonaActual.State = BusinessEntity.States.New;
                
             }
             if (Modo == ModoForm.Modificacion)
             {
-                UsuarioActual.ID = int.Parse(txtID.Text);
-                UsuarioActual.State = BusinessEntity.States.Modified;
+                PersonaActual.ID = int.Parse(txtID.Text);
+                PersonaActual.State = BusinessEntity.States.Modified;
             }
-
-            if (txtID.TextLength > 0)
-                UsuarioActual.ID = int.Parse(txtID.Text);
-
-            this.UsuarioActual.Habilitado = this.chkHabilitado.Checked;
-            this.UsuarioActual.Nombre = this.txtNombre.Text;
-            this.UsuarioActual.Apellido = this.txtApellido.Text;
-            this.UsuarioActual.Email = this.txtEmail.Text;
-            this.UsuarioActual.NombreUsuario = this.txtUsuario.Text;
-            this.UsuarioActual.Clave = this.txtClave.Text;
-
             if (Modo == ModoForm.Baja)
             {
-                UsuarioActual.ID = int.Parse(txtID.Text);
-                UsuarioActual.State = BusinessEntity.States.Modified;
+                PersonaActual.ID = int.Parse(txtID.Text);
+                PersonaActual.State = BusinessEntity.States.Deleted;
             }
+
+            
+            this.PersonaActual.Nombre = this.txtNombre.Text;
+            this.PersonaActual.Apellido = this.txtApellido.Text;
+            this.PersonaActual.Email = this.txtEmail.Text;
+            this.PersonaActual.Legajo = int.Parse(txtLegajo.Text);
+            this.PersonaActual.FechaNacimiento = dtpFeNac.Value;
+            this.PersonaActual.Direccion = txtDire.Text;
+            this.PersonaActual.Telefono = txtTel.Text;
+            this.PersonaActual.IDPlan = (int)cbPlan.SelectedValue;
+            this.PersonaActual.Tipo = (Persona.TipoPersona)cbTipo.SelectedValue;
+            
+            this.PersonaActual.NombreUsuario = this.txtUsuario.Text;
+            this.PersonaActual.Clave = this.txtClave.Text;
+            this.PersonaActual.Habilitado = this.chkHabilitado.Checked;
         }
 
         public override void GuardarCambios()
         {
             this.MapearADatos();
-            UsuarioLogic usr = new UsuarioLogic();
-            usr.Save(UsuarioActual);
+
+            try
+            {
+                new PersonaLogic().Save(PersonaActual);
+            }
+            catch (Exception ex)
+            {
+
+                Notificar(ex);
+            }
         }
 
 
@@ -126,30 +151,54 @@ namespace UI.Desktop
 
             string mensaje = "";
             bool bandera = true;
+            int intLegajo;
 
-            //if (this.txtID.Text == null)
-            //{
-            //    bandera = false;
-            //    mensaje += "No ingresó ningun ID\n";
-            //}
-
-            if (this.txtNombre.Text == null)
+            if ((Persona.TipoPersona)this.cbTipo.SelectedValue != Persona.TipoPersona.Administrativo)
             {
-                bandera = false;
-                mensaje += "No ingresó ningun Nombre\n";
-            }
+                if (this.txtNombre.Text == null)
+                {
+                    bandera = false;
+                    mensaje += "No ingresó ningun Nombre\n";
+                }
+                if (this.txtApellido.Text == null)
+                {
+                    bandera = false;
+                    mensaje += "No ingresó ningun Apellido\n";
+                }
+                if (this.txtEmail.Text == null)
+                {
+                    bandera = false;
+                    mensaje += "No ingresó ningun Email\n";
+                }
+                if (txtLegajo.TextLength == 0)
+                {
+                    mensaje += "No ingresó ningun Legajo\n";
+                    bandera = false;
+                }
+                if (txtLegajo.TextLength > 0 && int.TryParse(txtLegajo.Text, out intLegajo) == false)
+                {
+                    mensaje += "El Legajo debe ser un entero\n";
+                    bandera = false;
+                }
+                if (!Regex.IsMatch(this.txtEmail.Text, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
+                {
+                    mensaje += "Debe ingresar un email valido\n";
+                    bandera = false;
+                }
+                if (this.txtDire.Text == null)
+                {
+                    bandera = false;
+                    mensaje += "No ingresó ninguna Direccion\n";
+                }
+                if (this.txtTel.Text == null)
+                {
+                    bandera = false;
+                    mensaje += "No ingresó ninguna Télefono\n";
+                }
 
-            if (this.txtApellido.Text == null)
-            {
-                bandera = false;
-                mensaje += "No ingresó ningun Apellido\n";
             }
-
-            if (this.txtEmail.Text == null)
-            {
-                bandera = false;
-                mensaje += "No ingresó ningun Email\n";
-            }
+          
+           
 
             if (this.txtUsuario.Text == null)
             {
@@ -188,20 +237,14 @@ namespace UI.Desktop
             }
 
 
-            if (!Regex.IsMatch(this.txtEmail.Text, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
-            {
-                mensaje += "Debe ingresar un email valido\n";
-                bandera = false;
-            }
+           
 
 
-            if (bandera)
-                return bandera;
-            else
+            if (bandera == false)
             {
-                return bandera;
                 Notificar(mensaje, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            return bandera;
         }
         
             

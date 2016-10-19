@@ -12,7 +12,7 @@ using Business.Logic;
 
 namespace UI.Desktop
 {
-    public partial class Usuarios : Form
+    public partial class Usuarios : ApplicationForm
     {
         public Usuarios()
         {
@@ -27,8 +27,16 @@ namespace UI.Desktop
 
         public void Listar()
         {
-            UsuarioLogic ul = new UsuarioLogic();
-            this.dgvUsuarios.DataSource = ul.GetAll();
+            try
+            {
+                this.dgvUsuarios.DataSource = new PersonaLogic().GetAll();
+            }
+            catch (Exception ex)
+            {
+
+                Notificar(ex);
+            }
+           
         }
 
         private void Usuarios_Load(object sender, EventArgs e)
@@ -46,38 +54,40 @@ namespace UI.Desktop
             this.Close();
         }
 
-        private void tcUsuarios_BottomToolStripPanel_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void tsbNuevo_Click(object sender, EventArgs e)
         {
             UsuarioDesktop usrd = new UsuarioDesktop(ApplicationForm.ModoForm.Alta);
+            usrd.Text = "Agregar Usuario";
             usrd.ShowDialog();
             this.Listar();
         }
-
-        private void tsbEliminar_Click(object sender, EventArgs e)
-        {
-            int ID = ((Business.Entities.Usuario)this.dgvUsuarios.SelectedRows[0].DataBoundItem).ID;
-            UsuarioDesktop usrd = new UsuarioDesktop(ID,ApplicationForm.ModoForm.Baja);
-            usrd.ShowDialog();
-            this.Listar();
-        }
-
         private void tsbEditar_Click(object sender, EventArgs e)
         {
             if (dgvUsuarios.SelectedRows.Count == 1)
             {
-
-                int ID = ((Business.Entities.Usuario)this.dgvUsuarios.SelectedRows[0].DataBoundItem).ID;
+                int ID = ((Persona)this.dgvUsuarios.SelectedRows[0].DataBoundItem).ID;
                 UsuarioDesktop usrd = new UsuarioDesktop(ID, ApplicationForm.ModoForm.Modificacion);
+                usrd.Text = "Modificar Usuario";
                 usrd.ShowDialog();
-                this.Listar();
-
-
+                
             }
+            this.Listar();
         }
+        private void tsbEliminar_Click(object sender, EventArgs e)
+        {
+            if (dgvUsuarios.SelectedRows.Count == 1)
+            {
+                int ID = ((Persona)this.dgvUsuarios.SelectedRows[0].DataBoundItem).ID;
+                UsuarioDesktop usrd = new UsuarioDesktop(ID, ApplicationForm.ModoForm.Baja);
+                usrd.Text = "Eliminar Usuario";
+                usrd.ShowDialog();
+                
+            }
+            this.Listar();
+
+        }
+
     }
 }

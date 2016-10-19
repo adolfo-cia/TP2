@@ -57,7 +57,6 @@
             // 
             // tcUsuarios.BottomToolStripPanel
             // 
-            this.tcUsuarios.BottomToolStripPanel.Click += new System.EventHandler(this.tcUsuarios_BottomToolStripPanel_Click);
             // 
             // tcUsuarios.ContentPanel
             // 

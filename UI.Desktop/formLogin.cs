@@ -35,7 +35,7 @@ namespace UI.Desktop
                         Notificar("Login", "Bienvenido " + UsuarioActual.NombreUsuario + @"   ༼ つ ◕_◕ ༽つ ", MessageBoxButtons.OK, MessageBoxIcon.None);
                         this.DialogResult = DialogResult.OK;
                     }
-                    else if (UsuarioActual != null || UsuarioActual.Habilitado == false)
+                    else if (UsuarioActual != null && UsuarioActual.Habilitado == false)
                     {
                         Notificar("Login", "Usuario no habilitado para uso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
