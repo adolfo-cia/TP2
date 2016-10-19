@@ -23,7 +23,7 @@ namespace UI.Desktop
             InitializeComponent();
 
             CargarTiposPersonas();
-            //CargarPlanes();
+            CargarPlanes();
         }
 
         private void CargarTiposPersonas()
@@ -68,9 +68,18 @@ namespace UI.Desktop
             this.txtEmail.Text = this.PersonaActual.Email;
             this.txtLegajo.Text = this.PersonaActual.Legajo.ToString();
             this.dtpFeNac.Value = (DateTime)this.PersonaActual.FechaNacimiento;
+            //this.dtpFeNac.Enabled = false;
             this.txtDire.Text = this.PersonaActual.Direccion;
-            this.cbPlan.SelectedValue = this.PersonaActual.IDPlan;
-            this.cbTipo.SelectedValue = this.PersonaActual.Tipo;
+            if (this.PersonaActual.IDPlan != null)
+            {
+                this.cbPlan.SelectedValue = this.PersonaActual.IDPlan;
+            }
+            else
+            {
+                this.cbPlan.Enabled = false;
+            }
+            
+            this.cbTipo.SelectedIndex = (int)this.PersonaActual.Tipo;
 
             this.txtUsuario.Text = this.PersonaActual.NombreUsuario;
             this.txtClave.Text = this.PersonaActual.Clave;
@@ -117,11 +126,27 @@ namespace UI.Desktop
             this.PersonaActual.Nombre = this.txtNombre.Text;
             this.PersonaActual.Apellido = this.txtApellido.Text;
             this.PersonaActual.Email = this.txtEmail.Text;
-            this.PersonaActual.Legajo = int.Parse(txtLegajo.Text);
+            if (txtLegajo.Text == "")
+            {
+                this.PersonaActual.Legajo = null;
+            }
+            else
+            {
+                this.PersonaActual.Legajo = int.Parse(txtLegajo.Text);
+            }
+            
             this.PersonaActual.FechaNacimiento = dtpFeNac.Value;
             this.PersonaActual.Direccion = txtDire.Text;
             this.PersonaActual.Telefono = txtTel.Text;
-            this.PersonaActual.IDPlan = (int)cbPlan.SelectedValue;
+            if (this.cbPlan.Enabled == true)
+            {
+                this.PersonaActual.IDPlan = (int)cbPlan.SelectedValue;
+            }
+            else
+            {
+                this.PersonaActual.IDPlan = null;
+            }
+            
             this.PersonaActual.Tipo = (Persona.TipoPersona)cbTipo.SelectedValue;
             
             this.PersonaActual.NombreUsuario = this.txtUsuario.Text;
@@ -271,6 +296,18 @@ namespace UI.Desktop
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void cbTipo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbTipo.SelectedIndex == 2)
+            {
+                this.cbPlan.Enabled = false;
+            }
+            else
+            {
+                this.cbPlan.Enabled = true;
+            }
         }
     }
  }

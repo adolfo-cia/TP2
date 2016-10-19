@@ -101,7 +101,7 @@ namespace Business.Logic
                         validated = false;
                         error = "Nick/NombreUsuario ya ha sido usado\n";
                     }
-                    if (_validateLegajo(persona) == false)
+                    if (persona.Legajo != null && _validateLegajo(persona) == false)
                     {
                         validated = false;
                         error += "Legajo ya ha sido usado\n";
