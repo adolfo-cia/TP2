@@ -83,6 +83,7 @@ namespace UI.Desktop
             {
                 EspecialidadActual.ID = int.Parse(txtID.Text);
                 EspecialidadActual.State = BusinessEntity.States.Modified;
+
             }
 
             EspecialidadActual.Descripcion = txtDescripcion.Text;
