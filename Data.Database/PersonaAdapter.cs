@@ -9,7 +9,8 @@ namespace Data.Database
 {
     public class PersonaAdapter:Adapter
     {
-       //trae todas las personas segun el tipo
+        private SqlTransaction trans;
+        //trae todas las personas segun el tipo
         public List<Persona> GetAll(Persona.TipoPersona tipo)
         {
 
@@ -208,11 +209,12 @@ namespace Data.Database
 
         protected void Insert(Persona p)
         {
-            SqlTransaction trans = sqlConn.BeginTransaction();
+            
             try
             {
-                this.OpenConnection();
                 
+                this.OpenConnection();
+                trans = sqlConn.BeginTransaction();
 
                 SqlCommand cmdSave = new SqlCommand(@"INSERT INTO personas  
                                                         (nombre, apellido, direccion, email, telefono, fecha_nac, legajo, tipo_persona, id_plan, nombre_usuario, clave, habilitado)
@@ -254,10 +256,12 @@ namespace Data.Database
         }
         protected void Update(Persona p)
         {
-            SqlTransaction trans = sqlConn.BeginTransaction();
+
+            
             try
             {
                 this.OpenConnection();
+                trans = sqlConn.BeginTransaction();
                 SqlCommand cmdSave = new SqlCommand(@"UPDATE personas SET 
                                                         nombre = @nombre, 
                                                         apellido = @apellido,
@@ -270,7 +274,7 @@ namespace Data.Database
                                                         id_plan = @id_plan,
                                                         nombre_usuario = @nombre_usuario,
                                                         clave = @clave,
-                                                        habilitiado = @habilitado
+                                                        habilitado = @habilitado
                                                     WHERE id_persona = @id"
                                                     , sqlConn);
                 cmdSave.Transaction = trans;
@@ -282,9 +286,27 @@ namespace Data.Database
                 cmdSave.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = p.Email;
                 cmdSave.Parameters.Add("@telefono", SqlDbType.VarChar, 50).Value = p.Telefono;
                 cmdSave.Parameters.Add("@fecha_nac", SqlDbType.DateTime).Value = p.FechaNacimiento;
-                cmdSave.Parameters.Add("@legajo", SqlDbType.Int).Value = p.Legajo;
+                if (p.Legajo == null)
+                {
+                    cmdSave.Parameters.Add("@legajo", SqlDbType.Int).Value = DBNull.Value;
+                }
+                else
+                {
+                    cmdSave.Parameters.Add("@legajo", SqlDbType.Int).Value = p.Legajo;
+                }
+                //cmdSave.Parameters.Add("@legajo", SqlDbType.Int).Value = p.Legajo == null ? DBNull.Value : p.Legajo;
+
                 cmdSave.Parameters.Add("@tipo_persona", SqlDbType.Int ).Value = (int)p.Tipo;
-                cmdSave.Parameters.Add("@id_plan", SqlDbType.Int ).Value = p.IDPlan;
+                if (p.IDPlan == null)
+                {
+                    cmdSave.Parameters.Add("@id_plan", SqlDbType.Int).Value = DBNull.Value;
+                }
+                else
+                {
+                    cmdSave.Parameters.Add("@id_plan", SqlDbType.Int).Value = p.IDPlan;
+                }
+                //cmdSave.Parameters.Add("@id_plan", SqlDbType.Int ).Value = p.IDPlan;
+
                 cmdSave.Parameters.Add("@nombre_usuario", SqlDbType.VarChar, 50).Value = p.NombreUsuario;
                 cmdSave.Parameters.Add("@clave", SqlDbType.VarChar, 50).Value = p.Clave;
                 cmdSave.Parameters.Add("@habilitado", SqlDbType.Bit).Value = p.Habilitado;
@@ -308,10 +330,11 @@ namespace Data.Database
         }
         public void Delete(int ID)
         {
-            SqlTransaction trans = sqlConn.BeginTransaction();
+            
             try
             {
                 this.OpenConnection();
+                trans = sqlConn.BeginTransaction();
 
                 SqlCommand cmdDelete = new SqlCommand("DELETE FROM personas WHERE id_persona = @id", sqlConn);
                 cmdDelete.Transaction = trans;

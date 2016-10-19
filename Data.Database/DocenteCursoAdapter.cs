@@ -55,7 +55,7 @@ namespace Data.Database
             {
                 this.OpenConnection();
                 SqlCommand cmdDocCur = new SqlCommand(@"SELECT *
-                                                        FROM comisiones AS c
+                                                        FROM docentes_cursos
                                                         WHERE id_dictado = @id", sqlConn);
                 cmdDocCur.Parameters.Add("@id", SqlDbType.Int).Value = ID;
                 SqlDataReader drDocCur = cmdDocCur.ExecuteReader();

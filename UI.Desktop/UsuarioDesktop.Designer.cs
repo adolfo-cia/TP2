@@ -266,7 +266,6 @@
             this.lblApellido.Size = new System.Drawing.Size(44, 13);
             this.lblApellido.TabIndex = 15;
             this.lblApellido.Text = "Apellido";
-            
             // 
             // lblDire
             // 
@@ -448,6 +447,7 @@
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(96, 21);
             this.cbTipo.TabIndex = 28;
+            this.cbTipo.SelectedIndexChanged += new System.EventHandler(this.cbTipo_SelectedIndexChanged);
             // 
             // lblFeNac
             // 
