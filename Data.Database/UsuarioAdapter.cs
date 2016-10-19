@@ -167,7 +167,7 @@ namespace Data.Database
                                                         (nombre_usuario, clave, habilitado, tipo_persona)
                                                     VALUES
                                                         (@nombre_usuario, @clave, @habilitado, @tipo_persona)
-                                                    SELECT @@indentity" //esta linea es para recuperar el ID que asigno el SQL automaticamente
+                                                    SELECT @@identity" //esta linea es para recuperar el ID que asigno el SQL automaticamente
                                                     , sqlConn);
 
                 cmdSave.Parameters.Add("@nombre_usuario", SqlDbType.VarChar, 50).Value = usuario.NombreUsuario;

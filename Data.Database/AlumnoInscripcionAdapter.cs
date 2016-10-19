@@ -163,7 +163,7 @@ namespace Data.Database
                                                         (id_alumno, id_curso, condicion, nota)
                                                     VALUES
                                                         (@id_alumno, @id_curso, @condicion, @nota)
-                                                    SELECT @@indentity"
+                                                    SELECT @@identity"
                                                     , sqlConn);
 
                 cmdSave.Parameters.Add("@id_alumno", SqlDbType.Int).Value = ai.IDAlumno;

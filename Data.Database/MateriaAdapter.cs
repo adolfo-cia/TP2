@@ -105,7 +105,7 @@ namespace Data.Database
                                                         (desc_materia, hs_semanales, hs_totales, id_plan)
                                                     VALUES
                                                         (@desc_materia, @hs_semanales, @hs_totales, @id_plan)
-                                                    SELECT @@indentity"
+                                                    SELECT @@identity"
                                                     , sqlConn);
 
                 cmdSave.Parameters.Add("@desc_materia", SqlDbType.VarChar, 50).Value = m.Descripcion;

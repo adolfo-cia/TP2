@@ -105,7 +105,7 @@ namespace Data.Database
                                                         (desc_comision, anio_especialidad, id_plan)
                                                     VALUES
                                                         (@desc_comision, @anio_especialidad, @id_plan)
-                                                    SELECT @@indentity"
+                                                    SELECT @@identity"
                                                     , sqlConn);
 
                 cmdSave.Parameters.Add("@desc_comision", SqlDbType.VarChar, 50 ).Value = c.Descripcion;

@@ -103,7 +103,7 @@ namespace Data.Database
                                                         (desc_plan, id_especialidad)
                                                     VALUES
                                                         (@desc_plan, @id_especialidad)
-                                                    SELECT @@indentity"
+                                                    SELECT @@identity"
                                                     , sqlConn);
 
                 cmdSave.Parameters.Add("@desc_modulo", SqlDbType.VarChar, 50).Value = p.Descripcion;

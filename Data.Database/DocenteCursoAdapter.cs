@@ -106,7 +106,7 @@ namespace Data.Database
                                                         (id_curso, id_docente, cargo)
                                                     VALUES
                                                         (@id_curso, @id_docente, @cargo)
-                                                    SELECT @@indentity"
+                                                    SELECT @@identity"
                                                     , sqlConn);
 
                 cmdSave.Parameters.Add("@id_curso", SqlDbType.Int).Value = dc.IDCurso;

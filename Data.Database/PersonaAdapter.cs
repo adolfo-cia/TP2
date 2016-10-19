@@ -220,7 +220,7 @@ namespace Data.Database
                                                         (nombre, apellido, direccion, email, telefono, fecha_nac, legajo, tipo_persona, id_plan, nombre_usuario, clave, habilitado)
                                                     VALUES
                                                         (@nombre, @apellido, @direccion, @email, @telefono, @fecha_nac, @legajo, @tipo_persona, @id_plan, @nombre_usuario, @clave, @habilitado)
-                                                    SELECT @@indentity" //esta linea es para recuperar el ID que asigno el SQL automaticamente
+                                                    SELECT @@identity" //esta linea es para recuperar el ID que asigno el SQL automaticamente
                                                     , sqlConn);
                 cmdSave.Transaction = trans;
 
@@ -230,9 +230,27 @@ namespace Data.Database
                 cmdSave.Parameters.Add("@email", SqlDbType.VarChar, 50).Value = p.Email;
                 cmdSave.Parameters.Add("@telefono", SqlDbType.VarChar, 50).Value = p.Telefono;
                 cmdSave.Parameters.Add("@fecha_nac", SqlDbType.DateTime ).Value = p.FechaNacimiento;
-                cmdSave.Parameters.Add("@legajo", SqlDbType.Int).Value = p.Legajo;
+                if (p.Legajo == null)
+                {
+                    cmdSave.Parameters.Add("@legajo", SqlDbType.Int).Value = DBNull.Value;
+                }
+                else
+                {
+                    cmdSave.Parameters.Add("@legajo", SqlDbType.Int).Value = p.Legajo;
+                }
+                //cmdSave.Parameters.Add("@legajo", SqlDbType.Int).Value = p.Legajo == null ? DBNull.Value : p.Legajo;
+
                 cmdSave.Parameters.Add("@tipo_persona", SqlDbType.Int).Value = (int)p.Tipo;
-                cmdSave.Parameters.Add("@id_plan", SqlDbType.Int ).Value = p.IDPlan;
+                if (p.IDPlan == null)
+                {
+                    cmdSave.Parameters.Add("@id_plan", SqlDbType.Int).Value = DBNull.Value;
+                }
+                else
+                {
+                    cmdSave.Parameters.Add("@id_plan", SqlDbType.Int).Value = p.IDPlan;
+                }
+                //cmdSave.Parameters.Add("@id_plan", SqlDbType.Int ).Value = p.IDPlan;
+
                 cmdSave.Parameters.Add("@nombre_usuario", SqlDbType.VarChar, 50).Value = p.NombreUsuario;
                 cmdSave.Parameters.Add("@clave", SqlDbType.VarChar, 50).Value = p.Clave;
                 cmdSave.Parameters.Add("@habilitado", SqlDbType.Bit).Value = p.Habilitado;

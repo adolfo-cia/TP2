@@ -147,7 +147,7 @@ namespace Data.Database
                                                         (id_comision, id_materia, anio_calendario, cupo)
                                                     VALUES
                                                         (@id_comision, @id_materia, @anio_calendario, @cupo)
-                                                    SELECT @@indentity"
+                                                    SELECT @@identity"
                                                     , sqlConn);
 
                 cmdSave.Parameters.Add("@id_comision", SqlDbType.Int ).Value = c.IDComision;

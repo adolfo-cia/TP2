@@ -50,9 +50,6 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.lblLegajo = new System.Windows.Forms.Label();
             this.txtLegajo = new System.Windows.Forms.TextBox();
-            this.cbDia = new System.Windows.Forms.ComboBox();
-            this.cbMes = new System.Windows.Forms.ComboBox();
-            this.cbAnio = new System.Windows.Forms.ComboBox();
             this.lblTel = new System.Windows.Forms.Label();
             this.txtTel = new System.Windows.Forms.TextBox();
             this.lblPlan = new System.Windows.Forms.Label();
@@ -69,7 +66,7 @@
             // 
             this.lblUsuario.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Location = new System.Drawing.Point(56, 242);
+            this.lblUsuario.Location = new System.Drawing.Point(56, 215);
             this.lblUsuario.Name = "lblUsuario";
             this.lblUsuario.Size = new System.Drawing.Size(43, 13);
             this.lblUsuario.TabIndex = 12;
@@ -79,7 +76,7 @@
             // 
             this.lblConfirmarClave.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblConfirmarClave.AutoSize = true;
-            this.lblConfirmarClave.Location = new System.Drawing.Point(222, 268);
+            this.lblConfirmarClave.Location = new System.Drawing.Point(222, 241);
             this.lblConfirmarClave.Name = "lblConfirmarClave";
             this.lblConfirmarClave.Size = new System.Drawing.Size(81, 13);
             this.lblConfirmarClave.TabIndex = 11;
@@ -89,7 +86,7 @@
             // 
             this.lblClave.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblClave.AutoSize = true;
-            this.lblClave.Location = new System.Drawing.Point(65, 268);
+            this.lblClave.Location = new System.Drawing.Point(65, 241);
             this.lblClave.Name = "lblClave";
             this.lblClave.Size = new System.Drawing.Size(34, 13);
             this.lblClave.TabIndex = 10;
@@ -120,7 +117,7 @@
             this.txtConfirmarClave.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtConfirmarClave.Location = new System.Drawing.Point(309, 265);
+            this.txtConfirmarClave.Location = new System.Drawing.Point(309, 238);
             this.txtConfirmarClave.Name = "txtConfirmarClave";
             this.txtConfirmarClave.Size = new System.Drawing.Size(97, 20);
             this.txtConfirmarClave.TabIndex = 6;
@@ -130,7 +127,7 @@
             this.txtUsuario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtUsuario.Location = new System.Drawing.Point(105, 239);
+            this.txtUsuario.Location = new System.Drawing.Point(105, 212);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(96, 20);
             this.txtUsuario.TabIndex = 5;
@@ -150,7 +147,7 @@
             this.txtClave.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtClave.Location = new System.Drawing.Point(105, 265);
+            this.txtClave.Location = new System.Drawing.Point(105, 238);
             this.txtClave.Name = "txtClave";
             this.txtClave.Size = new System.Drawing.Size(96, 20);
             this.txtClave.TabIndex = 3;
@@ -212,35 +209,32 @@
             this.tableLayoutPanel1.Controls.Add(this.lblEmail, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.lblDire, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.txtDire, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.btnCancelar, 3, 12);
-            this.tableLayoutPanel1.Controls.Add(this.chkHabilitado, 0, 12);
-            this.tableLayoutPanel1.Controls.Add(this.btnAceptar, 2, 12);
+            this.tableLayoutPanel1.Controls.Add(this.btnCancelar, 3, 11);
+            this.tableLayoutPanel1.Controls.Add(this.chkHabilitado, 0, 11);
+            this.tableLayoutPanel1.Controls.Add(this.btnAceptar, 2, 11);
             this.tableLayoutPanel1.Controls.Add(this.lblLegajo, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtLegajo, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.txtID, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblID, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cbDia, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.cbMes, 2, 6);
-            this.tableLayoutPanel1.Controls.Add(this.cbAnio, 3, 6);
             this.tableLayoutPanel1.Controls.Add(this.lblTel, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.txtTel, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lblPlan, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.cbPlan, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.lblSeparador, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.lblUsuario, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.txtUsuario, 1, 9);
-            this.tableLayoutPanel1.Controls.Add(this.lblClave, 0, 10);
-            this.tableLayoutPanel1.Controls.Add(this.lblTipo, 0, 11);
-            this.tableLayoutPanel1.Controls.Add(this.cbTipo, 1, 11);
-            this.tableLayoutPanel1.Controls.Add(this.txtClave, 1, 10);
-            this.tableLayoutPanel1.Controls.Add(this.lblConfirmarClave, 2, 10);
-            this.tableLayoutPanel1.Controls.Add(this.txtConfirmarClave, 3, 10);
+            this.tableLayoutPanel1.Controls.Add(this.lblPlan, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.cbPlan, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.lblSeparador, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.lblUsuario, 0, 8);
+            this.tableLayoutPanel1.Controls.Add(this.txtUsuario, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.lblClave, 0, 9);
+            this.tableLayoutPanel1.Controls.Add(this.lblTipo, 0, 10);
+            this.tableLayoutPanel1.Controls.Add(this.cbTipo, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.txtClave, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.lblConfirmarClave, 2, 9);
+            this.tableLayoutPanel1.Controls.Add(this.txtConfirmarClave, 3, 9);
             this.tableLayoutPanel1.Controls.Add(this.lblFeNac, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.dtpFeNac, 1, 5);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 13;
+            this.tableLayoutPanel1.RowCount = 12;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -253,7 +247,9 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(409, 344);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -291,7 +287,7 @@
             // btnCancelar
             // 
             this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnCancelar.Location = new System.Drawing.Point(312, 318);
+            this.btnCancelar.Location = new System.Drawing.Point(312, 304);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(90, 24);
             this.btnCancelar.TabIndex = 14;
@@ -303,9 +299,9 @@
             // 
             this.chkHabilitado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.chkHabilitado.AutoSize = true;
-            this.chkHabilitado.Location = new System.Drawing.Point(14, 318);
+            this.chkHabilitado.Location = new System.Drawing.Point(14, 291);
             this.chkHabilitado.Name = "chkHabilitado";
-            this.chkHabilitado.Size = new System.Drawing.Size(73, 24);
+            this.chkHabilitado.Size = new System.Drawing.Size(73, 50);
             this.chkHabilitado.TabIndex = 16;
             this.chkHabilitado.Text = "Habilitado";
             this.chkHabilitado.UseVisualStyleBackColor = true;
@@ -313,7 +309,7 @@
             // btnAceptar
             // 
             this.btnAceptar.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnAceptar.Location = new System.Drawing.Point(211, 318);
+            this.btnAceptar.Location = new System.Drawing.Point(211, 304);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(88, 24);
             this.btnAceptar.TabIndex = 13;
@@ -341,39 +337,6 @@
             this.txtLegajo.Size = new System.Drawing.Size(96, 20);
             this.txtLegajo.TabIndex = 18;
             // 
-            // cbDia
-            // 
-            this.cbDia.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbDia.FormattingEnabled = true;
-            this.cbDia.Location = new System.Drawing.Point(105, 159);
-            this.cbDia.Name = "cbDia";
-            this.cbDia.Size = new System.Drawing.Size(96, 21);
-            this.cbDia.TabIndex = 24;
-            // 
-            // cbMes
-            // 
-            this.cbMes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbMes.FormattingEnabled = true;
-            this.cbMes.Location = new System.Drawing.Point(207, 159);
-            this.cbMes.Name = "cbMes";
-            this.cbMes.Size = new System.Drawing.Size(96, 21);
-            this.cbMes.TabIndex = 30;
-            // 
-            // cbAnio
-            // 
-            this.cbAnio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbAnio.FormattingEnabled = true;
-            this.cbAnio.Location = new System.Drawing.Point(309, 159);
-            this.cbAnio.Name = "cbAnio";
-            this.cbAnio.Size = new System.Drawing.Size(97, 21);
-            this.cbAnio.TabIndex = 31;
-            // 
             // lblTel
             // 
             this.lblTel.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -398,7 +361,7 @@
             // 
             this.lblPlan.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblPlan.AutoSize = true;
-            this.lblPlan.Location = new System.Drawing.Point(71, 190);
+            this.lblPlan.Location = new System.Drawing.Point(71, 163);
             this.lblPlan.Name = "lblPlan";
             this.lblPlan.Size = new System.Drawing.Size(28, 13);
             this.lblPlan.TabIndex = 25;
@@ -410,7 +373,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbPlan.FormattingEnabled = true;
-            this.cbPlan.Location = new System.Drawing.Point(105, 186);
+            this.cbPlan.Location = new System.Drawing.Point(105, 159);
             this.cbPlan.Name = "cbPlan";
             this.cbPlan.Size = new System.Drawing.Size(96, 21);
             this.cbPlan.TabIndex = 26;
@@ -420,7 +383,7 @@
             this.lblSeparador.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.lblSeparador.AutoSize = true;
             this.tableLayoutPanel1.SetColumnSpan(this.lblSeparador, 4);
-            this.lblSeparador.Location = new System.Drawing.Point(3, 223);
+            this.lblSeparador.Location = new System.Drawing.Point(3, 196);
             this.lblSeparador.Name = "lblSeparador";
             this.lblSeparador.Size = new System.Drawing.Size(403, 13);
             this.lblSeparador.TabIndex = 29;
@@ -431,7 +394,7 @@
             // 
             this.lblTipo.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lblTipo.AutoSize = true;
-            this.lblTipo.Location = new System.Drawing.Point(14, 295);
+            this.lblTipo.Location = new System.Drawing.Point(14, 268);
             this.lblTipo.Name = "lblTipo";
             this.lblTipo.Size = new System.Drawing.Size(85, 13);
             this.lblTipo.TabIndex = 27;
@@ -443,7 +406,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cbTipo.FormattingEnabled = true;
-            this.cbTipo.Location = new System.Drawing.Point(105, 291);
+            this.cbTipo.Location = new System.Drawing.Point(105, 264);
             this.cbTipo.Name = "cbTipo";
             this.cbTipo.Size = new System.Drawing.Size(96, 21);
             this.cbTipo.TabIndex = 28;
@@ -508,14 +471,11 @@
         private System.Windows.Forms.TextBox txtDire;
         private System.Windows.Forms.TextBox txtTel;
         private System.Windows.Forms.Label lblFeNac;
-        private System.Windows.Forms.ComboBox cbDia;
         private System.Windows.Forms.Label lblPlan;
         private System.Windows.Forms.ComboBox cbPlan;
         private System.Windows.Forms.Label lblTipo;
         private System.Windows.Forms.ComboBox cbTipo;
         private System.Windows.Forms.Label lblSeparador;
-        private System.Windows.Forms.ComboBox cbMes;
-        private System.Windows.Forms.ComboBox cbAnio;
         private System.Windows.Forms.DateTimePicker dtpFeNac;
     }
 }
