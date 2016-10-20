@@ -16,7 +16,8 @@ namespace UI.Desktop
         public Especialidades()
         {
             InitializeComponent();
-            this.dgvEspecialidades.AutoGenerateColumns = false;
+            this.dgvEspecialidades.AutoGenerateColumns = false;   
+            dgvEspecialidades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void Especialidad_Load(object sender, EventArgs e)

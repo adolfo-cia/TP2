@@ -16,6 +16,8 @@ namespace UI.Desktop
     {
         public Cursos()
         {
+            dgvCursos.AutoGenerateColumns = false;
+            dgvCursos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             InitializeComponent();
         }
 

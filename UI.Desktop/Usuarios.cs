@@ -18,6 +18,7 @@ namespace UI.Desktop
         {
             InitializeComponent();
             this.dgvUsuarios.AutoGenerateColumns = false;
+            dgvUsuarios.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void toolStripContainer1_TopToolStripPanel_Click(object sender, EventArgs e)
