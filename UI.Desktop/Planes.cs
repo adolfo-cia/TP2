@@ -16,6 +16,8 @@ namespace UI.Desktop
     {
         public Planes()
         {
+            dgvPlanes.AutoGenerateColumns = false;
+            dgvPlanes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             InitializeComponent();
         }
 
