@@ -20,11 +20,6 @@ namespace UI.Desktop
             this.dgvUsuarios.AutoGenerateColumns = false;
         }
 
-        private void toolStripContainer1_TopToolStripPanel_Click(object sender, EventArgs e)
-        {
-
-        }
-
         public void Listar()
         {
             try

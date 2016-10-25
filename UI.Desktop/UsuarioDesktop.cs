@@ -16,13 +16,15 @@ namespace UI.Desktop
     public partial class UsuarioDesktop : ApplicationForm
     {
         private Persona PersonaActual { get; set; }
-        private List<Plan> _planes;    
+        private List<Plan> _planes;
+        private List<Especialidad> _especialidades;    
 
         public UsuarioDesktop()
         {
             InitializeComponent();
-
+            
             CargarTiposPersonas();
+            CargarEspecialidades();
             CargarPlanes();
         }
 
@@ -32,10 +34,25 @@ namespace UI.Desktop
         }
         private void CargarPlanes()
         {
-            _planes = new PlanLogic().GetAll();
-            cbPlan.DataSource = _planes;
+            //probar instanciar y luego con el evento selectedindexchange tomar el selectedvalue para comparar en el findall() !!
+            List<Plan> _planesCombo = _planes.FindAll(x=> x.IDEspecialidad == (int)this.cbEspecialidades.SelectedValue);
+            
             cbPlan.DisplayMember = "Descripcion";
             cbPlan.ValueMember = "ID";
+            cbPlan.DataSource = _planesCombo;
+
+        }
+        private void CargarEspecialidades()
+        {
+           _planes = new PlanLogic().GetAll();
+            _especialidades = new EspecialidadLogic().GetAll();
+            
+            cbEspecialidades.DisplayMember = "Descripcion";
+            cbEspecialidades.ValueMember = "ID";
+            cbEspecialidades.DataSource = _especialidades;
+
+            _planes = new PlanLogic().GetAll();
+
         }
 
         public UsuarioDesktop(ModoForm modo) : this()
@@ -67,6 +84,7 @@ namespace UI.Desktop
             this.txtApellido.Text = this.PersonaActual.Apellido;
             this.txtEmail.Text = this.PersonaActual.Email;
             this.txtLegajo.Text = this.PersonaActual.Legajo.ToString();
+            this.txtTel.Text = this.PersonaActual.Telefono;
             this.dtpFeNac.Value = (DateTime)this.PersonaActual.FechaNacimiento;
             //this.dtpFeNac.Enabled = false;
             this.txtDire.Text = this.PersonaActual.Direccion;
@@ -180,17 +198,17 @@ namespace UI.Desktop
 
             if ((Persona.TipoPersona)this.cbTipo.SelectedValue != Persona.TipoPersona.Administrativo)
             {
-                if (this.txtNombre.Text == null)
+                if (this.txtNombre.TextLength == 0)
                 {
                     bandera = false;
                     mensaje += "No ingresó ningun Nombre\n";
                 }
-                if (this.txtApellido.Text == null)
+                if (this.txtApellido.TextLength == 0)
                 {
                     bandera = false;
                     mensaje += "No ingresó ningun Apellido\n";
                 }
-                if (this.txtEmail.Text == null)
+                if (this.txtEmail.TextLength == 0)
                 {
                     bandera = false;
                     mensaje += "No ingresó ningun Email\n";
@@ -210,12 +228,12 @@ namespace UI.Desktop
                     mensaje += "Debe ingresar un email valido\n";
                     bandera = false;
                 }
-                if (this.txtDire.Text == null)
+                if (this.txtDire.TextLength == 0)
                 {
                     bandera = false;
                     mensaje += "No ingresó ninguna Direccion\n";
                 }
-                if (this.txtTel.Text == null)
+                if (this.txtTel.TextLength == 0)
                 {
                     bandera = false;
                     mensaje += "No ingresó ninguna Télefono\n";
@@ -225,7 +243,7 @@ namespace UI.Desktop
           
            
 
-            if (this.txtUsuario.Text == null)
+            if (this.txtUsuario.TextLength == 0)
             {
                 bandera = false;
                 mensaje += "No ingresó ningun Usuario\n";
@@ -242,19 +260,19 @@ namespace UI.Desktop
                     mensaje += "Las claves no coinciden\n";
                     bandera = false;
                 }
-                if (txtClave.TextLength < 8)
+                if (txtClave.TextLength <= 8)
                 {
                     mensaje += "La clave no puede tener menos de 8 caracteres\n";
                     bandera = false;
                 }
 
-                if (this.txtClave.Text == null)
+                if (this.txtClave.TextLength == 0)
                 {
                     bandera = false;
                     mensaje += "No ingresó ninguna Clave\n";
                 }
 
-                if (this.txtConfirmarClave.Text == null)
+                if (this.txtConfirmarClave.TextLength == 0)
                 {
                     bandera = false;
                     mensaje += "No ingresó la confirmación de la clave\n";
@@ -282,15 +300,25 @@ namespace UI.Desktop
                 if (Validar())
                 {
                     GuardarCambios();
-                    this.Close();
+                    if (AppExito)
+                    {
+                        this.Close();
+                    }
+                    
+
                 }
             }
             else if (Modo == ModoForm.Baja)
             {
                 GuardarCambios();
-                this.Close();
+                if (AppExito)
+                {
+                    this.Close();
+                }
             }
-            
+
+            AppExito = true;
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -303,11 +331,18 @@ namespace UI.Desktop
             if (cbTipo.SelectedIndex == 2)
             {
                 this.cbPlan.Enabled = false;
+                this.cbEspecialidades.Enabled = false;
             }
             else
             {
                 this.cbPlan.Enabled = true;
+                this.cbEspecialidades.Enabled = true;
             }
+        }
+
+        private void cbEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.CargarPlanes();
         }
     }
  }

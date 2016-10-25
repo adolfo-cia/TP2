@@ -78,14 +78,22 @@ namespace Data.Database
                     Persona p = new Persona();
                     p.ID = (int)drPersonas["id_persona"];
 
-                    p.Nombre = (string)((drPersonas["nombre"] != null) ? "" : drPersonas["nombre"]);
-                    p.Apellido = (string)((drPersonas["apellido"] != null) ? "" : drPersonas["apellido"]);
-                    p.Email = (string)((drPersonas["email"] != null) ? "" : drPersonas["email"]);
-                    p.Direccion = (string)((drPersonas["direccion"] != null) ? "" : drPersonas["direccion"]);
+                    p.Nombre = drPersonas["nombre"].ToString();
+                    //p.Nombre = Convert.IsDBNull(drPersonas["nombre"]) ? null : (string)(drPersonas["nombre"]);
+                    //p.Nombre = (string)((drPersonas["nombre"] == null ) ? "" : drPersonas["nombre"]);
+                    //p.Apellido = (string)((drPersonas["apellido"] == null) ? "" : drPersonas["apellido"]);
+                    p.Apellido = drPersonas["apellido"].ToString();
+                    //p.Email = (string)((drPersonas["email"] == null) ? "" : drPersonas["email"]);
+                    p.Email = drPersonas["email"].ToString();
+                    //p.Direccion = (string)((drPersonas["direccion"] == null) ? "" : drPersonas["direccion"]);
+                    p.Direccion = drPersonas["direccion"].ToString();
                     p.FechaNacimiento = (DateTime)drPersonas["fecha_nac"];
-                    p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]);
-                    p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]);
-                    p.Telefono = (string)((drPersonas["telefono"] != null) ? "" : drPersonas["telefono"]);
+                    //p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]);
+                    p.IDPlan = drPersonas["id_plan"] as int? ?? null;
+                    //p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]);
+                    p.Legajo = drPersonas["legajo"] as int? ?? null;
+                    //p.Telefono = (string)((drPersonas["telefono"] == null) ? "" : drPersonas["telefono"]);
+                    p.Telefono = drPersonas["telefono"].ToString();
                     p.Tipo = (Persona.TipoPersona)drPersonas["tipo_persona"];
                     p.Clave = (string)drPersonas["clave"];
                     p.Habilitado = (bool)drPersonas["habilitado"];
@@ -161,19 +169,28 @@ namespace Data.Database
                 {
                     p.ID = (int)drPersonas["id_persona"];
 
-                    p.Nombre = (string)((drPersonas["nombre"] != null) ? "" : drPersonas["nombre"]);
-                    p.Apellido = (string)((drPersonas["apellido"] != null) ? "" : drPersonas["apellido"]);
-                    p.Email = (string)((drPersonas["email"] != null) ? "" : drPersonas["email"]);
-                    p.Direccion = (string)((drPersonas["direccion"] != null) ? "" : drPersonas["direccion"]);
+                    p.Nombre = drPersonas["nombre"].ToString();
+                    //p.Nombre = Convert.IsDBNull(drPersonas["nombre"]) ? null : (string)(drPersonas["nombre"]);
+                    //p.Nombre = (string)((drPersonas["nombre"] == null ) ? "" : drPersonas["nombre"]);
+                    //p.Apellido = (string)((drPersonas["apellido"] == null) ? "" : drPersonas["apellido"]);
+                    p.Apellido = drPersonas["apellido"].ToString();
+                    //p.Email = (string)((drPersonas["email"] == null) ? "" : drPersonas["email"]);
+                    p.Email = drPersonas["email"].ToString();
+                    //p.Direccion = (string)((drPersonas["direccion"] == null) ? "" : drPersonas["direccion"]);
+                    p.Direccion = drPersonas["direccion"].ToString();
                     p.FechaNacimiento = (DateTime)drPersonas["fecha_nac"];
-                    p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]);
-                    p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]);
-                    p.Telefono = (string)((drPersonas["telefono"] != null) ? "" : drPersonas["telefono"]);
+                    //p.IDPlan = (int?)((drPersonas["id_plan"] != null) ? null : drPersonas["id_plan"]);
+                    p.IDPlan = drPersonas["id_plan"] as int? ?? null;
+                    //p.Legajo = (int?)((drPersonas["legajo"] != null) ? null : drPersonas["legajo"]);
+                    p.Legajo = drPersonas["legajo"] as int? ?? null;
+                    //p.Telefono = (string)((drPersonas["telefono"] == null) ? "" : drPersonas["telefono"]);
+                    p.Telefono = drPersonas["telefono"].ToString();
                     p.Tipo = (Persona.TipoPersona)drPersonas["tipo_persona"];
                     p.Clave = (string)drPersonas["clave"];
                     p.Habilitado = (bool)drPersonas["habilitado"];
                     p.NombreUsuario = (string)drPersonas["nombre_usuario"];
                     //p.CambiaClave = (int)((drPersonas["cambia_clave"]!= null) ? null : drPersonas["cambia_clave"]);
+
                 }
                 drPersonas.Close();
             }

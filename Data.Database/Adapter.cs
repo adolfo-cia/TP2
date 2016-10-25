@@ -34,5 +34,7 @@ namespace Data.Database
         {
             throw new Exception("Metodo no implementado");
         }
+
+
     }
 }
