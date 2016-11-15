@@ -20,6 +20,8 @@ namespace UI.Desktop
             Application.Run(new Usuarios());
             //Application.Run(new UsuarioDesktop());
             //Application.Run(new formMain());
+            //Application.Run(new Materias());
+            //Application.Run(new Planes());
         }
     }
 }

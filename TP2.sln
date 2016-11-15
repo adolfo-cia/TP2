@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.Desktop", "UI.Desktop\UI.Desktop.csproj", "{02099F7F-9927-4096-B183-2537E6B795CC}"
 EndProject
@@ -12,8 +12,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business.Entities", "Business.Entities\Business.Entities.csproj", "{5241174D-F370-4A78-B64D-255485CA1F76}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Database", "Data.Database\Data.Database.csproj", "{18D1C50F-58E0-4D94-B05B-4A95A146E6BB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.Web", "UI.Web\UI.Web.csproj", "{F8BF7E50-53CC-48A5-B695-BBCD0C115A39}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.Consola", "UI.Consola\UI.Consola.csproj", "{84AA8E25-E499-424B-BF2B-AFA02EE63767}"
 EndProject
@@ -43,10 +41,6 @@ Global
 		{18D1C50F-58E0-4D94-B05B-4A95A146E6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18D1C50F-58E0-4D94-B05B-4A95A146E6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18D1C50F-58E0-4D94-B05B-4A95A146E6BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F8BF7E50-53CC-48A5-B695-BBCD0C115A39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F8BF7E50-53CC-48A5-B695-BBCD0C115A39}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F8BF7E50-53CC-48A5-B695-BBCD0C115A39}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F8BF7E50-53CC-48A5-B695-BBCD0C115A39}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84AA8E25-E499-424B-BF2B-AFA02EE63767}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84AA8E25-E499-424B-BF2B-AFA02EE63767}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84AA8E25-E499-424B-BF2B-AFA02EE63767}.Release|Any CPU.ActiveCfg = Release|Any CPU

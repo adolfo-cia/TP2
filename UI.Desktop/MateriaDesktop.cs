@@ -40,10 +40,10 @@ namespace UI.Desktop
         private void CargarPlanes()
         {
             List<Plan> planesCombo = _planes.FindAll(x => x.IDEspecialidad == (int)cbEspecialidad.SelectedValue);
-
-            cbPlan.DataSource = planesCombo;
             cbPlan.ValueMember = "ID";
             cbPlan.DisplayMember = "Descripcion";
+            cbPlan.DataSource = planesCombo;
+            
         }
 
         public Materia materiaActual { get; set; }
