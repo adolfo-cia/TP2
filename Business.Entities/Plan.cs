@@ -22,7 +22,7 @@ namespace Business.Entities
             set { _IDEspecialidad = value; }
         }
 
-
+        public string Especialidad { get; set; }
 
 
 

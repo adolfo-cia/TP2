@@ -14,8 +14,11 @@ namespace UI.Desktop
 {
     public partial class ApplicationForm : Form
     {
+        public bool AppExito { get; set; }
+        
         public ApplicationForm()
         {
+            AppExito = true;
             InitializeComponent();
         }
 
@@ -56,6 +59,7 @@ namespace UI.Desktop
         public void Notificar(Exception e)
         {
             Notificar("Error inesperado", e.Message + "\nIntentelo nuevamente", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            AppExito = false;
         }
 
         private void ApplicationForm_Load(object sender, EventArgs e)
