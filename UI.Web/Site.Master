@@ -1,0 +1,67 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="UI.Web.Site" %>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Academia</title>
+    <link href="Estilos/Estilos.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="scripts/scripts.js"></script>
+    <style type="text/css">
+        .auto-style1 {
+            width: 251px;
+        }
+
+        .auto-style4 {
+            height: 144px;
+            width: 529px;
+        }
+
+        .auto-style5 {
+            width: 251px;
+            height: 144px;
+        }
+
+        .auto-style6 {
+            height: 144px;
+        }
+    </style>
+
+    <link rel="icon" type="image/png" href="/Imagenes/LogoIconoUTN.png" />
+
+</head>
+<body>
+    <form id="bodyForm" runat="server">
+        <table style="width: 100%;">
+            <tr>
+                <td class="auto-style5">
+                    <asp:Menu runat="server" ID="menu" DataSourceID="SiteMapDataSource">
+                    </asp:Menu>
+                    <asp:LoginStatus ID="LoginStatus1" runat="server" />
+                    <asp:SiteMapDataSource ID="SiteMapDataSource" runat="server" />
+                </td>
+                <td class="auto-style4">
+                    <h2 align="center" class="titulo" style="color: rgb(0, 0, 255); font-family: 'Comic Sans MS'; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">Universidad Tecnológica Nacional<br />
+                        Facultad Regional Rosario</h2>
+                    <p align="center" class="titulo" style="color: rgb(0, 0, 255); font-family: 'Comic Sans MS'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+                        Sistema Academia<br />
+                        Módulo de autogestión
+                    </p>
+                </td>
+                <td class="auto-style6"></td>
+            </tr>
+         <%--   <tr>
+                <td class="auto-style1">&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>--%>
+            <%--<tr>
+                <td class="auto-style1"></td>
+                <td>&nbsp;</td>
+            </tr>--%>
+        </table>
+        <div>
+            <asp:ContentPlaceHolder ID="bodyContentPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

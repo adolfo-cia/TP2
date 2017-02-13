@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-            // VER TIPOPERSONA : TIPOPERSONAS !!!!!!!!
+         
 
 namespace Business.Entities
 {

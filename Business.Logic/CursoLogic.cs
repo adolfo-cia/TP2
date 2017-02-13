@@ -29,7 +29,7 @@ namespace Business.Logic
             catch (Exception ex)
             {
                 
-                throw;
+                throw ex;
             }
             
         }
@@ -42,7 +42,7 @@ namespace Business.Logic
             catch (Exception ex)
             {
 
-                throw ;
+                throw ex;
             }
         }
 
@@ -54,7 +54,7 @@ namespace Business.Logic
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -72,7 +72,7 @@ namespace Business.Logic
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
             
         }
