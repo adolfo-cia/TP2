@@ -127,6 +127,7 @@ namespace UI.Web
                 try
                 {
                     EspActual = LogicEspecialidad.GetOne(id);
+                    Session["Especialidad"] = EspActual;
                     txtDescEsp.Text = EspActual.Descripcion;
                 }
                 catch (Exception ex)
