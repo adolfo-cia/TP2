@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Business.Logic;
 using Business.Entities;
 
-namespace UI.Web
+namespace UI_Web
 {
     public partial class PlanesMaterias : System.Web.UI.Page
     {

@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace UI.Web {
+namespace UI_Web {
     
     
     public partial class Especialidades {

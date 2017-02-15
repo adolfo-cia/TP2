@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 using Business.Entities;
 using Business.Logic;
 
-namespace UI.Web
+namespace UI_Web
 {
     public partial class Especialidades : System.Web.UI.Page
     {
