@@ -47,7 +47,7 @@ namespace UI.Web
         protected void Page_Load(object sender, EventArgs e)
         {
             try {
-                if ((Persona.TipoPersonas)Session["RolSesion"] == Persona.TipoPersonas.Administrativo)
+                if ((Persona.TipoPersona)Session["RolSesion"] == Persona.TipoPersona.Administrativo)
                 {
                     CargarGridPlanes();
 
@@ -77,7 +77,7 @@ namespace UI.Web
                 var planes = LogicPlan.GetAll();
                 // se reemplaza cada plan en planes con un objeto anonimo de la forma {ID, Descripcion, DEspecialidad}
                 // donde ID es la id del plan, Descripcion es la descripcion del plan y DEspecialidad es la descripcion de la especialidad del plan
-                gridPlanes.DataSource = planes.Select(plan => new { ID = plan.ID, Descripcion = plan.Descripcion, DEspecialidad = LogicEspecialidad.GetOne(plan.IdEspecialidad).Descripcion });
+                gridPlanes.DataSource = planes.Select(plan => new { ID = plan.ID, Descripcion = plan.Descripcion, DEspecialidad = LogicEspecialidad.GetOne(plan.IDEspecialidad).Descripcion });
 
                 gridPlanes.DataBind();
             }
@@ -173,7 +173,7 @@ namespace UI.Web
                 PlanActual = LogicPlan.GetOne(id);
                 Session["Plan"] = PlanActual;
                 txtDescripcion.Text = PlanActual.Descripcion;
-                ddlEspecialidades.SelectedValue = PlanActual.IdEspecialidad.ToString();
+                ddlEspecialidades.SelectedValue = PlanActual.IDEspecialidad.ToString();
             }
             catch (Exception ex)
             {
@@ -198,15 +198,17 @@ namespace UI.Web
 
             if (FormMode == FormModes.Baja)
             {
-                PlanActual.Baja = true;
+                // PlanActual.Baja = true;
+                PlanActual.State = BusinessEntity.States.Deleted;
             }
             else
             {
-                PlanActual.Baja = false;
+                //  PlanActual.Baja = false;
+                PlanActual.State = BusinessEntity.States.Modified;
             }
 
             PlanActual.Descripcion = txtDescripcion.Text;
-            PlanActual.IdEspecialidad = int.Parse(ddlEspecialidades.SelectedValue);
+            PlanActual.IDEspecialidad = int.Parse(ddlEspecialidades.SelectedValue);
         }
 
         private void GuardarPlan(Plan pa)
@@ -289,11 +291,11 @@ namespace UI.Web
 
         protected void lnkReporte_Click(object sender, EventArgs e)
         {
-            try
-            {
-                PlanesReport rpt = new PlanesReport(LogicPlan.GetAll());
+         //   try
+           // {
+             //   PlanesReport rpt = new PlanesReport(LogicPlan.GetAll());
 
-                rpt.Run(false);
+               // rpt.Run(false);
                 // Specify the appropriate viewer.
                 // If the report has been exported in a different format, the content-type will 
                 // need to be changed as noted in the following table:
@@ -305,24 +307,24 @@ namespace UI.Web
                 //    Excel     "application/vnd.ms-excel"
                 //    Excel     "application/excel" (either of these types should work) 
                 //    Text      "text/plain"  
-                Response.ContentType = "application/pdf";
-                Response.Clear();
-                Response.AddHeader("content-disposition", "inline;filename=MyPDF.PDF");
+               // Response.ContentType = "application/pdf";
+               // Response.Clear();
+               // Response.AddHeader("content-disposition", "inline;filename=MyPDF.PDF");
                 // Create the PDF export object.
-                PdfExport pdf = new PdfExport();
+               // PdfExport pdf = new PdfExport();
                 // Create a new memory stream that will hold the pdf output
-                System.IO.MemoryStream memStream = new System.IO.MemoryStream();
+               // System.IO.MemoryStream memStream = new System.IO.MemoryStream();
                 // Export the report to PDF.
-                pdf.Export(rpt.Document, memStream);
+               // pdf.Export(rpt.Document, memStream);
                 // Write the PDF stream to the output stream.
-                Response.BinaryWrite(memStream.ToArray());
+               // Response.BinaryWrite(memStream.ToArray());
                 // Send all buffered content to the client
-                Response.End();
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
-            }
+               // Response.End();
+           // }
+           // catch (Exception ex)
+           // {
+           //     Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
+           // }
         }
     }
 }
