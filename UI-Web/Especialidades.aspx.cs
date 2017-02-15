@@ -200,19 +200,19 @@ namespace UI.Web
             {
                 EspActual = (Especialidad)Session["Especialidad"];
                 EspActual.ID = SelectedID.Value;
-                EspActual.State = BusinessEntity.States.Modified;
+                if (FormMode == FormModes.Baja)
+                {
+                    //  EspActual.Baja = true;
+                    EspActual.State = BusinessEntity.States.Deleted;
+                }
+                else
+                {
+                    //  EspActual.Baja = false;
+                    EspActual.State = BusinessEntity.States.Modified;
+                }
 
             }
-            if (FormMode == FormModes.Baja)
-            {
-                //  EspActual.Baja = true;
-                EspActual.State = BusinessEntity.States.Deleted;
-            }
-            else
-            {
-                //  EspActual.Baja = false;
-                EspActual.State = BusinessEntity.States.Modified;
-            }
+          
 
             EspActual.Descripcion = txtDescEsp.Text;
         }

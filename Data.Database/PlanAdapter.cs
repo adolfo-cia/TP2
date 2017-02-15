@@ -106,7 +106,7 @@ namespace Data.Database
                                                     SELECT @@identity"
                                                     , sqlConn);
 
-                cmdSave.Parameters.Add("@desc_modulo", SqlDbType.VarChar, 50).Value = p.Descripcion;
+                cmdSave.Parameters.Add("@desc_plan", SqlDbType.VarChar, 50).Value = p.Descripcion;
                 cmdSave.Parameters.Add("@id_especialidad", SqlDbType.Int ).Value = p.IDEspecialidad;
 
                 p.ID = Decimal.ToInt32((decimal)cmdSave.ExecuteScalar()); 

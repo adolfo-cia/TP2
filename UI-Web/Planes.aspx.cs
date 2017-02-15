@@ -193,19 +193,21 @@ namespace UI.Web
             if (FormMode == FormModes.Baja ||FormMode == FormModes.Modificacion)
             {
                 PlanActual = (Plan)Session["Plan"];
-                PlanActual.State = BusinessEntity.States.Modified;
+
+                if (FormMode == FormModes.Baja)
+                {
+                    // PlanActual.Baja = true;
+                    PlanActual.State = BusinessEntity.States.Deleted;
+                }
+                else
+                {
+                    //  PlanActual.Baja = false;
+                    PlanActual.State = BusinessEntity.States.Modified;
+                }
+
             }
 
-            if (FormMode == FormModes.Baja)
-            {
-                // PlanActual.Baja = true;
-                PlanActual.State = BusinessEntity.States.Deleted;
-            }
-            else
-            {
-                //  PlanActual.Baja = false;
-                PlanActual.State = BusinessEntity.States.Modified;
-            }
+            
 
             PlanActual.Descripcion = txtDescripcion.Text;
             PlanActual.IDEspecialidad = int.Parse(ddlEspecialidades.SelectedValue);

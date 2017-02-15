@@ -146,7 +146,7 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmdDelete = new SqlCommand("DELETE FROM especialidades WHERE id_especialdad = @id", sqlConn);
+                SqlCommand cmdDelete = new SqlCommand("DELETE FROM especialidades WHERE id_especialidad = @id", sqlConn);
                 cmdDelete.Parameters.Add("@id", SqlDbType.Int).Value = ID;
 
                 cmdDelete.ExecuteNonQuery();
