@@ -11,19 +11,32 @@ namespace UI_Web
 {
     public partial class Especialidades : System.Web.UI.Page
     {
-        EspecialidadLogic _especialidadLogic;
+        #region variables y Getters/Setters
+        EspecialidadLogic _especialidadManager;
+        public enum FormModes
+        {
+            Alta,
+            Baja,
+            Modificacion
+        }
 
-        private EspecialidadLogic LogicEspecialidad
+        private EspecialidadLogic EspecialidadManager
         {
             get
             {
-                if (_especialidadLogic == null)
-                    _especialidadLogic = new EspecialidadLogic();
+                if (_especialidadManager == null)
+                    _especialidadManager = new EspecialidadLogic();
 
-                return _especialidadLogic;
+                return _especialidadManager;
             }
         }
-
+        public FormModes FormMode
+        {
+            get { return (FormModes)ViewState["FormMode"]; }
+            set { ViewState["FormMode"] = value; }
+        }
+        private Especialidad EspActual { get; set; }
+        #endregion
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,7 +44,7 @@ namespace UI_Web
             {
                 if ((Persona.TipoPersona)Session["RolSesion"] == Persona.TipoPersona.Administrativo)
                 {
-                    LoadGrid();
+                    CargarGrilla();
                 }
                 else
                 {
@@ -44,34 +57,6 @@ namespace UI_Web
                 Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
             }
         }
-
-        private void LoadGrid()
-        {
-            try
-            {
-                gridEspecialidades.DataSource = LogicEspecialidad.GetAll();
-                gridEspecialidades.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
-            }
-        }
-
-        public enum FormModes
-        {
-            Alta,
-            Baja,
-            Modificacion
-        }
-
-        public FormModes FormMode
-        {
-            get { return (FormModes)ViewState["FormMode"]; }
-            set { ViewState["FormMode"] = value; }
-        }
-
-        private Especialidad EspActual { get; set; }
 
         private int? SelectedID
         {
@@ -91,7 +76,6 @@ namespace UI_Web
                 ViewState["SelectedID"] = value;
             }
         }
-
         private bool IsEntitySelected
         {
             get
@@ -99,7 +83,18 @@ namespace UI_Web
                 return (SelectedID != -1);
             }
         }
-
+        private void CargarGrilla()
+        {
+            try
+            {
+                gridEspecialidades.DataSource = EspecialidadManager.GetAll();
+                gridEspecialidades.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
+            }
+        }
         protected void gridEspecialidades_SelectedIndexChanged(object sender, EventArgs e)
         {
             SelectedID = (int?)gridEspecialidades.SelectedValue;
@@ -109,7 +104,7 @@ namespace UI_Web
             gridEspecialidadesActionPanel.Visible = true;
         }
 
-        private void LoadForm(int id)
+        private void CargarForm(int id)
         {
             if(FormMode == FormModes.Baja)
             {
@@ -126,7 +121,7 @@ namespace UI_Web
             {
                 try
                 {
-                    EspActual = LogicEspecialidad.GetOne(id);
+                    EspActual = EspecialidadManager.GetOne(id);
                     Session["Especialidad"] = EspActual;
                     txtDescEsp.Text = EspActual.Descripcion;
                 }
@@ -148,7 +143,7 @@ namespace UI_Web
                 formEspecialidadesActionPanel.Visible = true;
                 EspecialidadesPanel.Visible = true;
 
-                LoadForm(SelectedID.Value);
+                CargarForm(SelectedID.Value);
             }
         }
 
@@ -159,7 +154,7 @@ namespace UI_Web
             formEspecialidadesActionPanel.Visible = true;
             EspecialidadesPanel.Visible = true;
 
-            LoadForm(SelectedID.Value);
+            CargarForm(SelectedID.Value);
             
         }
 
@@ -173,15 +168,15 @@ namespace UI_Web
                 gridEspecialidadesActionPanel.Visible = false;
                 formEspecialidadesActionPanel.Visible = true;
 
-                LoadForm(SelectedID.Value);
+                CargarForm(SelectedID.Value);
             }
         }
 
-        void GuardarEspecialidad(Especialidad esp)
+        void SaveEspecialidad(Especialidad esp)
         {
             try
             {
-                LogicEspecialidad.Save(esp);
+                EspecialidadManager.Save(esp);
             }
             catch (Exception ex)
             {
@@ -222,8 +217,8 @@ namespace UI_Web
             gridEspecialidadesActionPanel.Visible = true;
 
             CargarEspecialidad();
-            GuardarEspecialidad(EspActual);
-            LoadGrid();
+            SaveEspecialidad(EspActual);
+            CargarGrilla();
 
             gridEspecialidades.SelectedIndex = -1;
             gridEspecialidades_SelectedIndexChanged(null, null);            

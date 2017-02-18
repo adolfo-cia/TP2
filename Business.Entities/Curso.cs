@@ -43,13 +43,15 @@ namespace Business.Entities
             set { _IDMateria = value; }
         }
         
+    }
 
-
-
-
-        
-
+    public class CursoComplete : Curso
+    {
+        public string DMateria { get; set; }
+        public string DComision { get; set; }
 
 
     }
+
+
 }

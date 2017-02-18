@@ -48,15 +48,15 @@
                 </td>
                 <td class="auto-style6"></td>
             </tr>
-         <%--   <tr>
+            <tr>
                 <td class="auto-style1">&nbsp;</td>
                 <td>&nbsp;</td>
                 <td>&nbsp;</td>
-            </tr>--%>
-            <%--<tr>
+            </tr>
+            <tr>
                 <td class="auto-style1"></td>
                 <td>&nbsp;</td>
-            </tr>--%>
+            </tr>
         </table>
         <div>
             <asp:ContentPlaceHolder ID="bodyContentPlaceHolder" runat="server">

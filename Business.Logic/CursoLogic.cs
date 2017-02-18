@@ -33,6 +33,21 @@ namespace Business.Logic
             }
             
         }
+
+        public List<CursoComplete> GetAllComplete()
+        {
+            try
+            {
+                return CursoData.GetAllComplete();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
         public Curso GetOne(int id) 
         {
             try
@@ -61,7 +76,16 @@ namespace Business.Logic
 
         public void Save(Curso c)
         {
-            CursoData.Save(c);
+            try
+            {
+                CursoData.Save(c);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
         public void Delete(int id)
         {

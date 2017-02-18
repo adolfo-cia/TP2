@@ -21,13 +21,14 @@ namespace Business.Entities
             get { return _IDEspecialidad; }
             set { _IDEspecialidad = value; }
         }
+     
+    }
 
-        public string Especialidad { get; set; }
-
-
-
-
+    public class PlanComplete : Plan
+    {
+        public string DEspecialidad { get; set; }
 
 
     }
+
 }

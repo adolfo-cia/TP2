@@ -92,7 +92,7 @@ namespace UI_Web
             {
                 if ((Persona.TipoPersona)Session["RolSesion"] == Persona.TipoPersona.Administrativo)
                 {
-                    CargarGridMaterias();
+                    CargarGrilla();
                 }
                 else
                 {
@@ -106,7 +106,7 @@ namespace UI_Web
             }
 
         }
-        private void CargarGridMaterias()
+        private void CargarGrilla()
         {
             try
             {
@@ -367,7 +367,7 @@ namespace UI_Web
 
             CargarMateria();
             SaveMateria(MateriaActual);
-            CargarGridMaterias();
+            CargarGrilla();
 
             gridMaterias.SelectedIndex = -1;
             gridMaterias_SelectedIndexChanged(null, null);

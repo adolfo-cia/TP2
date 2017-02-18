@@ -33,6 +33,21 @@ namespace Business.Logic
             }
             
         }
+
+        public List<ComisionComplete> GetAllComplete()
+        {
+            try
+            {
+                return ComisionData.GetAllComplete();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
         public Comision GetOne(int id) 
         {
             try
@@ -46,9 +61,18 @@ namespace Business.Logic
             }
             
         }
-        public void Save(Comision plan)
+        public void Save(Comision com)
         {
-            ComisionData.Save(plan);
+            try
+            {
+                ComisionData.Save(com);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
         public void Delete(int id)
         {

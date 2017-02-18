@@ -64,7 +64,16 @@ namespace Business.Logic
         }
         public void Save(Materia Materia)
         {
-            MateriaData.Save(Materia);
+            try
+            {
+                MateriaData.Save(Materia);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
         }
         public void Delete(int id)
         {

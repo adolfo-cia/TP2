@@ -12,58 +12,71 @@ namespace UI_Web
 {
     public partial class Cursos : System.Web.UI.Page
     {
-        private CursoLogic _logicCurso;
-        private MateriaLogic _logicMateria;
-        private ComisionLogic _logicComision;
+        #region variables y Getters/Setters
 
-        private Curso CursoActual {get; set;}
+        private MateriaLogic _materiaManager;
+        private CursoLogic _cursoManager;
+        private ComisionLogic _comisionManager;
+        enum FormModes
+        {
+            Alta,
+            Modificacion,
+            Baja,
+        }
 
-        private MateriaLogic LogicMateria
+        private MateriaLogic MateriaManager
         {
             get
             {
-                if(_logicMateria == null)
+                if(_materiaManager == null)
                 {
-                    _logicMateria = new MateriaLogic();
+                    _materiaManager = new MateriaLogic();
                 }
-                return _logicMateria;
+                return _materiaManager;
             }
         }
-
-        private CursoLogic LogicCurso
+        private CursoLogic CursoManager
         {
             get 
             {
-                if(_logicCurso==null)
+                if(_cursoManager==null)
                 {
-                    _logicCurso = new CursoLogic();
+                    _cursoManager = new CursoLogic();
                 }
-                return _logicCurso;
+                return _cursoManager;
             }
         }
-        private ComisionLogic LogicComision
+        private ComisionLogic ComisionManager
         {
             get
             {
-                if (_logicComision == null)
+                if (_comisionManager == null)
                 {
-                    _logicComision = new ComisionLogic();
+                    _comisionManager = new ComisionLogic();
                 }
-                return _logicComision;
+                return _comisionManager;
+            }
+        }
+        FormModes FormMode
+        {
+            get
+            {
+                return (FormModes)this.ViewState["FormMode"];
+            }
+            set
+            {
+                this.ViewState["FormMode"] = value;
             }
         }
 
-        private void LoadGrid()
-        {
-            CargarGridCursos();
-        }
-        
+        private Curso CursoActual { get; set; }
+        #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
             try {
                 if ((Persona.TipoPersona)Session["RolSesion"] == Persona.TipoPersona.Administrativo)
                 {
-                    LoadGrid();
+                    CargarGrilla();
                 }
                 else
                 {
@@ -77,19 +90,20 @@ namespace UI_Web
             }
         }
 
-        private void CargarGridCursos()
+        private void CargarGrilla()
         {
             try
             {
-                var cursos = LogicCurso.GetAll();
-                gdvCursos.DataSource = cursos.Select(curso => new
-                {
-                    ID = curso.ID,
-                    AnioCalendario = curso.AnioCalendario,
-                    Cupo = curso.Cupo,
-                    Materia = LogicMateria.GetOne(curso.IDMateria).Descripcion,
-                    Comision = LogicComision.GetOne(curso.IDComision).Descripcion
-                });
+                //var cursos = CursoManager.GetAll();
+                //gdvCursos.DataSource = cursos.Select(curso => new
+                //{
+                //    ID = curso.ID,
+                //    AnioCalendario = curso.AnioCalendario,
+                //    Cupo = curso.Cupo,
+                //    Materia = MateriaManager.GetOne(curso.IDMateria).Descripcion,
+                //    Comision = ComisionManager.GetOne(curso.IDComision).Descripcion
+                //});
+                gdvCursos.DataSource = CursoManager.GetAllComplete();
                 gdvCursos.DataBind();
             }
             catch (Exception ex)
@@ -97,7 +111,6 @@ namespace UI_Web
                 Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
             }
         }
-
         private int? SelectedIDCurso
         {
             get
@@ -116,40 +129,16 @@ namespace UI_Web
                 ViewState["SelectedIDCurso"] = value;
             }
         }
-
-        protected void gdvCursos_SelectedIndexChanged(object sender, EventArgs e)
+        private bool HaySeleccion()
         {
-            SelectedIDCurso = (int?)gdvCursos.SelectedValue;
-
-            formPanelCurso.Visible = false;
-            formActionsPanel.Visible = false;
-            gridActionsPanel.Visible = true;
-        }
-
-        enum FormModes
-        {
-            Alta,
-            Modificacion,
-            Baja,
-        }
-
-        FormModes FormMode
-        {
-            get
-            {
-                return (FormModes)this.ViewState["FormMode"];
-            }
-            set
-            {
-                this.ViewState["FormMode"] = value;
-            }
+            return (SelectedIDCurso != -1);
         }
 
         private void CargarMaterias()
         {
             try
             {
-                ddlMaterias.DataSource = LogicMateria.GetAll();
+                ddlMaterias.DataSource = MateriaManager.GetAll();
                 ddlMaterias.DataValueField = "ID";
                 ddlMaterias.DataTextField = "Descripcion";
                 ddlMaterias.DataBind();
@@ -161,7 +150,6 @@ namespace UI_Web
                 Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
             }
         }
-
         private void CargarAnios()
         {
             List<int> anios = new List<int>(5);
@@ -186,11 +174,34 @@ namespace UI_Web
             ddlCupo.DataSource = cupos;
             ddlCupo.DataBind();
         }
-
-              
-        private bool HaySeleccion()
+        private void CargarCurso()
         {
-            return (SelectedIDCurso != -1);
+            CursoActual = new Curso();
+
+            if (FormMode == FormModes.Alta)
+            {
+                CursoActual.State = BusinessEntity.States.New;
+            }
+            if (FormMode == FormModes.Baja || FormMode == FormModes.Modificacion)
+            {
+                CursoActual.State = BusinessEntity.States.Modified;
+                CursoActual.ID = SelectedIDCurso.Value;
+                if (FormMode == FormModes.Baja)
+                {
+                    //CursoActual.Baja = true;
+                    CursoActual.State = BusinessEntity.States.Deleted;
+                }
+                else
+                {
+                    //CursoActual.Baja = false;
+                    CursoActual.State = BusinessEntity.States.Modified;
+                }
+            }
+
+            CursoActual.IDMateria = int.Parse(ddlMaterias.SelectedValue);
+            CursoActual.IDComision = int.Parse(ddlComisiones.SelectedValue);
+            CursoActual.AnioCalendario = int.Parse(ddlAnioCalendario.SelectedValue);
+            CursoActual.Cupo = int.Parse(ddlCupo.SelectedValue);
         }
 
         void CargarForm(int id)
@@ -216,7 +227,7 @@ namespace UI_Web
             }
             if (FormMode != FormModes.Alta)
             {
-                CursoActual = LogicCurso.GetOne(id);
+                CursoActual = CursoManager.GetOne(id);
                                                
                 ddlMaterias.SelectedValue = CursoActual.IDMateria.ToString();
                 ddlMaterias_SelectedIndexChanged(null, null);
@@ -226,39 +237,9 @@ namespace UI_Web
             }
         }
 
-        private void CargarCurso()
+        private void SaveCurso(Curso cur)
         {
-            CursoActual = new Curso();
-
-            if (FormMode == FormModes.Alta)
-            {              
-                CursoActual.State = BusinessEntity.States.New;
-            }
-            if (FormMode == FormModes.Baja || FormMode == FormModes.Modificacion)
-            {
-                CursoActual.State = BusinessEntity.States.Modified;
-                CursoActual.ID = SelectedIDCurso.Value;
-                if (FormMode == FormModes.Baja)
-                {
-                    //CursoActual.Baja = true;
-                    CursoActual.State = BusinessEntity.States.Deleted;
-                }
-                else
-                {
-                    //CursoActual.Baja = false;
-                    CursoActual.State = BusinessEntity.States.Modified;
-                }
-            }
-          
-            CursoActual.IDMateria = int.Parse(ddlMaterias.SelectedValue);
-            CursoActual.IDComision = int.Parse(ddlComisiones.SelectedValue);
-            CursoActual.AnioCalendario = int.Parse(ddlAnioCalendario.SelectedValue);
-            CursoActual.Cupo = int.Parse(ddlCupo.SelectedValue);
-        }
-
-        private void GuardarCurso(Curso cur)
-        {
-            LogicCurso.Save(cur);
+            CursoManager.Save(cur);
         }
 
         protected void lnkNuevo_Click(object sender, EventArgs e)
@@ -305,8 +286,8 @@ namespace UI_Web
             gridActionsPanel.Visible = true;
 
             CargarCurso();
-            GuardarCurso(CursoActual);
-            CargarGridCursos();
+            SaveCurso(CursoActual);
+            CargarGrilla();
 
             gdvCursos.SelectedIndex = -1;
             gdvCursos_SelectedIndexChanged(null, null);            
@@ -322,31 +303,13 @@ namespace UI_Web
             gdvCursos_SelectedIndexChanged(null, null); 
         }
 
-        protected void ddlMaterias_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                int idplan = LogicMateria.GetOne(int.Parse(ddlMaterias.SelectedValue)).IDPlan;
-                ddlComisiones.DataSource = LogicComision.GetAll().Where(comi => comi.IDPlan == idplan);
-
-                ddlComisiones.DataValueField = "ID";
-                ddlComisiones.DataTextField = "Descripcion";
-
-                ddlComisiones.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
-            }
-        }
-
         protected void lnkReporte_Click(object sender, EventArgs e)
         {
             try
             {
-             //   CursosReport rpt = new CursosReport(LogicCurso.GetAll());
+                //   CursosReport rpt = new CursosReport(CursoManager.GetAll());
 
-           //     rpt.Run(false);
+                //     rpt.Run(false);
                 // Specify the appropriate viewer.
                 // If the report has been exported in a different format, the content-type will 
                 // need to be changed as noted in the following table:
@@ -358,7 +321,7 @@ namespace UI_Web
                 //    Excel     "application/vnd.ms-excel"
                 //    Excel     "application/excel" (either of these types should work) 
                 //    Text      "text/plain"  
-              //  Response.ContentType = "application/pdf";
+                //  Response.ContentType = "application/pdf";
                 //Response.Clear();
                 //Response.AddHeader("content-disposition", "inline;filename=MyPDF.PDF");
                 // Create the PDF export object.
@@ -377,5 +340,33 @@ namespace UI_Web
                 Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
             }
         }
+
+        protected void ddlMaterias_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int idplan = MateriaManager.GetOne(int.Parse(ddlMaterias.SelectedValue)).IDPlan;
+                ddlComisiones.DataSource = ComisionManager.GetAll().Where(comi => comi.IDPlan == idplan);
+
+                ddlComisiones.DataValueField = "ID";
+                ddlComisiones.DataTextField = "Descripcion";
+
+                ddlComisiones.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
+            }
+        }
+        protected void gdvCursos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SelectedIDCurso = (int?)gdvCursos.SelectedValue;
+
+            formPanelCurso.Visible = false;
+            formActionsPanel.Visible = false;
+            gridActionsPanel.Visible = true;
+        }
+
+        
     }
 }

@@ -47,6 +47,50 @@ namespace Data.Database
             }
             return comisiones;
         }
+
+        public List<ComisionComplete> GetAllComplete()
+        {
+            List<ComisionComplete> comisiones = new List<ComisionComplete>();
+            try
+            {
+                this.OpenConnection();
+
+                SqlCommand cmdComisiones = new SqlCommand(@"select *
+                                                            from comisiones c
+                                                            left join planes p on c.id_plan = p.id_plan
+                                                            left join especialidades e on p.id_especialidad = e.id_especialidad", sqlConn);
+
+                SqlDataReader drComisiones = cmdComisiones.ExecuteReader();
+
+                while (drComisiones.Read())
+                {
+                    ComisionComplete c = new ComisionComplete();
+                    c.ID = (int)drComisiones["id_comision"];
+                    c.Descripcion = (string)drComisiones["desc_comision"];
+                    c.AnioEspecialidad = (int)drComisiones["anio_especialidad"];
+                    c.IDPlan = (int)drComisiones["id_plan"];
+                    c.DPlan = (string)drComisiones["desc_plan"];
+                    c.IDEspecialidad = (int)drComisiones["id_especialidad"];
+                    c.DEspecialidad = (string)drComisiones["desc_especialidad"];
+
+                    comisiones.Add(c);
+                }
+
+                drComisiones.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Exception ExcepcionManejada = new Exception("Error al recuperar lista de Comisiones de la DB", ex);
+                throw ExcepcionManejada;
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return comisiones;
+        }
+
         public Comision GetOne(int ID)
         {
             Comision c = new Comision();
@@ -138,7 +182,7 @@ namespace Data.Database
                                                     , sqlConn);
 
                 cmdSave.Parameters.Add("@id", SqlDbType.Int).Value = c.ID;
-                cmdSave.Parameters.Add("@desc_comision", SqlDbType.Int).Value = c.Descripcion;
+                cmdSave.Parameters.Add("@desc_comision", SqlDbType.VarChar,50).Value = c.Descripcion;
                 cmdSave.Parameters.Add("@anio_especialidad", SqlDbType.Int).Value = c.AnioEspecialidad;
                 cmdSave.Parameters.Add("@id_plan", SqlDbType.Int).Value = c.IDPlan;
 

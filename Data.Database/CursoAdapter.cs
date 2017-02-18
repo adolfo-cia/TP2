@@ -48,6 +48,49 @@ namespace Data.Database
             }
             return cursos;
         }
+
+        public List<CursoComplete> GetAllComplete()
+        {
+            List<CursoComplete> cursos = new List<CursoComplete>();
+            try
+            {
+                this.OpenConnection();
+
+                SqlCommand cmdCursos = new SqlCommand(@"select *
+                                                        from cursos c
+                                                        inner join materias m on c.id_materia = m.id_materia
+                                                        inner join comisiones com on c.id_comision = com.id_comision", sqlConn);
+
+                SqlDataReader drCursos = cmdCursos.ExecuteReader();
+
+                while (drCursos.Read())
+                {
+                    CursoComplete c = new CursoComplete();
+                    c.ID = (int)drCursos["id_curso"];
+                    c.IDMateria = (int)drCursos["id_materia"];
+                    c.DMateria = (string)drCursos["desc_materia"];
+                    c.IDComision = (int)drCursos["id_comision"];
+                    c.DComision = (string)drCursos["desc_comision"];
+                    c.AnioCalendario = (int)drCursos["anio_calendario"];
+                    c.Cupo = (int)drCursos["cupo"];
+                    cursos.Add(c);
+                }
+
+                drCursos.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Exception ExcepcionManejada = new Exception("Error al recuperar lista de Cursos de la DB", ex);
+                throw ExcepcionManejada;
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return cursos;
+        }
+
         public Curso GetOne(int ID)
         {
             Curso c = new Curso();

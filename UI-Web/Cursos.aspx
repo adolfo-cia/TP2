@@ -9,8 +9,8 @@
                         HeaderStyle-HorizontalAlign ="Left">
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                         <Columns>
-                            <asp:BoundField DataField="Materia" HeaderText="Materia" />
-                            <asp:BoundField DataField="Comision" HeaderText="Comision" />
+                            <asp:BoundField DataField="DMateria" HeaderText="Materia" />
+                            <asp:BoundField DataField="DComision" HeaderText="Comision" />
                             <asp:BoundField DataField="AnioCalendario" HeaderText="Año Calendario" />
                             <asp:BoundField DataField="Cupo" HeaderText="Cupo" />
                             <asp:CommandField SelectText="Seleccionar" ShowSelectButton="true" />
@@ -71,10 +71,10 @@
                     <asp:Panel ID="reportePanel" runat="server" Visible="true">
                             <asp:LinkButton ID="lnkReporte" runat="server" OnClick="lnkReporte_Click">Crear reporte</asp:LinkButton>
                     </asp:Panel>
-                </td>
+    <%--            </td>
                 <td>&nbsp;</td>
             </tr>
-        </table>
+        </table>--%>
     </asp:Panel>
 
 </asp:Content>
