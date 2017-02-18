@@ -48,6 +48,51 @@ namespace Data.Database
             }
             return materias;
         }
+
+        public List<MateriaComplete> GetAllComplete()
+        {
+            List<MateriaComplete> materias = new List<MateriaComplete>();
+            try
+            {
+                this.OpenConnection();
+
+                SqlCommand cmdMaterias = new SqlCommand(@"select *
+                                                        from materias m
+                                                        left join planes p on m.id_plan = p.id_plan
+                                                        left join especialidades e on p.id_especialidad = e.id_especialidad"
+                                                        , sqlConn);
+
+                SqlDataReader drMaterias = cmdMaterias.ExecuteReader();
+
+                while (drMaterias.Read())
+                {
+                    MateriaComplete m = new MateriaComplete();
+                    m.ID = (int)drMaterias["id_materia"];
+                    m.Descripcion = (string)drMaterias["desc_materia"];
+                    m.HSSemanales = (int)drMaterias["hs_semanales"];
+                    m.HSSTotales = (int)drMaterias["hs_totales"];
+                    m.IDPlan = (int)drMaterias["id_plan"];
+                    m.DPlan = (string)drMaterias["desc_plan"];
+                    m.IDEspecialidad = (int)drMaterias["id_especialidad"];
+                    m.DEspecialidad= (string)drMaterias["desc_especialidad"];
+                    materias.Add(m);
+                }
+
+                drMaterias.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Exception ExcepcionManejada = new Exception("Error al recuperar lista de Materias de la db", ex);
+                throw ExcepcionManejada;
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return materias;
+        }
+
         public Materia GetOne(int ID)
         {
             Materia m = new Materia();

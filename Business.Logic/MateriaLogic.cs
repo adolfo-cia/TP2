@@ -33,6 +33,22 @@ namespace Business.Logic
             }
             
         }
+
+        public List<MateriaComplete> GetAllComplete()
+        {
+            try
+            {
+                return MateriaData.GetAllComplete();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+
         public Materia GetOne(int id) 
         {
             try

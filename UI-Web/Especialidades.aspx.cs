@@ -202,12 +202,10 @@ namespace UI_Web
                 EspActual.ID = SelectedID.Value;
                 if (FormMode == FormModes.Baja)
                 {
-                    //  EspActual.Baja = true;
                     EspActual.State = BusinessEntity.States.Deleted;
                 }
                 else
                 {
-                    //  EspActual.Baja = false;
                     EspActual.State = BusinessEntity.States.Modified;
                 }
 
