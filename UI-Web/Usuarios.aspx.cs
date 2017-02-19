@@ -15,46 +15,46 @@ namespace UI_Web
     public partial class Usuarios : System.Web.UI.Page
     {
         #region Variables de los Managers
-        private PersonaLogic _logicPersona;
-        private PlanLogic _logicPlan;
-        private EspecialidadLogic _logicEspecialidad;
+        private PersonaLogic _personaManager;
+        private PlanLogic _planManager;
+        private EspecialidadLogic _especialidadManager;
         #endregion
 
         #region Getters de Managers
-        private EspecialidadLogic LogicEspecialidad
+        private EspecialidadLogic EspecialidadManager
         {
             get
             {
-                if (_logicEspecialidad == null)
+                if (_especialidadManager == null)
                 {
-                    _logicEspecialidad = new EspecialidadLogic();
+                    _especialidadManager = new EspecialidadLogic();
                 }
 
-                return _logicEspecialidad;
+                return _especialidadManager;
             }
         }
-        private PlanLogic LogicPlan
+        private PlanLogic PlanManager
         {
             get
             {
-                if (_logicPlan == null)
+                if (_planManager == null)
                 {
-                    _logicPlan = new PlanLogic();
+                    _planManager = new PlanLogic();
                 }
 
-                return _logicPlan;
+                return _planManager;
             }
         }
-        private PersonaLogic LogicPersona
+        private PersonaLogic PersonaManager
         {
             get
             {
-                if (_logicPersona == null)
+                if (_personaManager == null)
                 {
-                    _logicPersona = new PersonaLogic();
+                    _personaManager = new PersonaLogic();
                 }
 
-                return _logicPersona;
+                return _personaManager;
             }
         }
         #endregion
@@ -66,7 +66,7 @@ namespace UI_Web
             {
                 if ((Persona.TipoPersona)Session["RolSesion"] == Persona.TipoPersona.Administrativo)
                 {
-                    LoadGrid();
+                    CargarGrilla();
                     //if (!IsPostBack)
                     //{
                     //    Util.Logger.LogHabilitado = false;
@@ -87,11 +87,11 @@ namespace UI_Web
         }
 
         //Metodo que carga la grilla
-        private void LoadGrid()
+        private void CargarGrilla()
         {
             try
             {
-                gridView.DataSource = LogicPersona.GetAll();
+                gridView.DataSource = PersonaManager.GetAll();
                 gridView.DataBind();
             }
             catch (Exception ex)
@@ -195,7 +195,7 @@ namespace UI_Web
             ddlTipoPersona.Enabled = true;
         }
 
-        private void LoadForm(int id)
+        private void CargarForm(int id)
         {
             CargarTiposPersonas();
             CargarEspecialidades();
@@ -264,10 +264,10 @@ namespace UI_Web
                     rfvClave.Enabled = false;
                     rfvRepiteClave.Enabled = false;
 
-                    PersonaActual = LogicPersona.GetOneByID(id);
+                    PersonaActual = PersonaManager.GetOneByID(id);
                     Session["Persona"] = PersonaActual;
-                    PlanUsuario = LogicPlan.GetOne((int)PersonaActual.IDPlan);
-                    EspecialidadUsuario = LogicEspecialidad.GetOne(PlanUsuario.IDEspecialidad);
+                    PlanUsuario = PlanManager.GetOne((int)PersonaActual.IDPlan);
+                    EspecialidadUsuario = EspecialidadManager.GetOne(PlanUsuario.IDEspecialidad);
 
                     txtNombre.Text = PersonaActual.Nombre;
                     txtApellido.Text = PersonaActual.Apellido;
@@ -298,7 +298,7 @@ namespace UI_Web
         {
             try
             {
-                ddlEspecialidad.DataSource = LogicEspecialidad.GetAll();
+                ddlEspecialidad.DataSource = EspecialidadManager.GetAll();
                 ddlEspecialidad.DataValueField = "ID";
                 ddlEspecialidad.DataTextField = "Descripcion";
                 ddlEspecialidad.DataBind();
@@ -311,7 +311,7 @@ namespace UI_Web
             }
         }
 
-        private void LoadEntity()
+        private void CargarPersona()
         {
             if (FormMode == FormModes.Alta)
             {
@@ -322,16 +322,13 @@ namespace UI_Web
             if (FormMode == FormModes.Modificacion || FormMode == FormModes.Baja)
             {
                 PersonaActual = (Persona)Session["Persona"];
-                //PersonaActual.State = BusinessEntity.States.Modified;
                 if (FormMode == FormModes.Baja)
                 {
-                    //PersonaActual.Baja = true;
                     PersonaActual.State = BusinessEntity.States.Deleted;
                 }
                 else
                 {
                     PersonaActual.State = BusinessEntity.States.Modified;
-                    //PersonaActual.Baja = false;
                 }
             }
             if (FormMode == FormModes.Alta)
@@ -358,8 +355,8 @@ namespace UI_Web
         {
             try
             {
-                //string validacion=_logicPersona.Save(per);
-                _logicPersona.Save(per);
+                //string validacion=_personaManager.Save(per);
+                _personaManager.Save(per);
                 //if (validacion.Length > 1)               
                 //    Response.Write(validacion);
             }
@@ -378,7 +375,7 @@ namespace UI_Web
                 formActionsPanel.Visible = true;
                 gridActionsPanel.Visible = false;
                 FormMode = FormModes.Modificacion;
-                LoadForm(SelectedID.Value);
+                CargarForm(SelectedID.Value);
             }
         }
 
@@ -389,10 +386,10 @@ namespace UI_Web
             gridActionsPanel.Visible = true;
 
             // Se cargan los datos del form en PersonaActual y luego se persisten en base de datos
-            LoadEntity();
+            CargarPersona();
             SaveEntity(PersonaActual);
-            LoadGrid();
-            // LoadGrid no dispara SelectedIndexChanged de la gridview por lo que cambiamos el
+            CargarGrilla();
+            // CargarGrilla no dispara SelectedIndexChanged de la gridview por lo que cambiamos el
             // selected ID manualmente
             gridView.SelectedIndex = -1;
             gridView_SelectedIndexChanged(null, null);
@@ -404,7 +401,7 @@ namespace UI_Web
             {
                 ddlIdPlan.DataValueField = "ID";
                 ddlIdPlan.DataTextField = "Descripcion";
-                ddlIdPlan.DataSource = LogicPlan.GetAll().Where(plan => plan.IDEspecialidad == int.Parse(ddlEspecialidad.SelectedValue));
+                ddlIdPlan.DataSource = PlanManager.GetAll().Where(plan => plan.IDEspecialidad == int.Parse(ddlEspecialidad.SelectedValue));
                 ddlIdPlan.DataBind();
             }
             catch (Exception ex)
@@ -422,7 +419,7 @@ namespace UI_Web
                 gridActionsPanel.Visible = false;
 
                 FormMode = FormModes.Baja;
-                LoadForm(SelectedID.Value);
+                CargarForm(SelectedID.Value);
             }
         }
 
@@ -434,7 +431,7 @@ namespace UI_Web
             formActionsPanel.Visible = true;
             gridActionsPanel.Visible = false;
 
-            LoadForm(SelectedID.Value);
+            CargarForm(SelectedID.Value);
             
         }
 
@@ -459,7 +456,7 @@ namespace UI_Web
             //{
             //    try
             //    {
-            //        Persona p = LogicPersona.GetOne(SelectedID.Value);
+            //        Persona p = PersonaManager.GetOne(SelectedID.Value);
 
             //        if (p.TipoPersona == Persona.TipoPersona.Alumno)
             //        {

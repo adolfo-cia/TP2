@@ -10,52 +10,52 @@
 namespace UI_Web {
     
     
-    public partial class Comisiones {
+    public partial class Docentes_cursos {
         
         /// <summary>
-        /// panelGridComisiones control.
+        /// gridPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelGridComisiones;
+        protected global::System.Web.UI.WebControls.Panel gridPanel;
         
         /// <summary>
-        /// gridComisiones control.
+        /// gridDocenteCurso control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gridComisiones;
+        protected global::System.Web.UI.WebControls.GridView gridDocenteCurso;
         
         /// <summary>
-        /// panelFormComisiones control.
+        /// formPanelDocenteCurso control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelFormComisiones;
+        protected global::System.Web.UI.WebControls.Panel formPanelDocenteCurso;
         
         /// <summary>
-        /// lblDescCom control.
+        /// lblDocente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescCom;
+        protected global::System.Web.UI.WebControls.Label lblDocente;
         
         /// <summary>
-        /// txtDescCom control.
+        /// ddlDocente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDescCom;
+        protected global::System.Web.UI.WebControls.DropDownList ddlDocente;
         
         /// <summary>
         /// RequiredFieldValidator1 control.
@@ -67,22 +67,22 @@ namespace UI_Web {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// lblAnioEspecialidad control.
+        /// lblCurso control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAnioEspecialidad;
+        protected global::System.Web.UI.WebControls.Label lblCurso;
         
         /// <summary>
-        /// txtAnioEsp control.
+        /// ddlCurso control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtAnioEsp;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCurso;
         
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -94,31 +94,22 @@ namespace UI_Web {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
-        /// RangeValidator1 control.
+        /// lblCargo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator1;
+        protected global::System.Web.UI.WebControls.Label lblCargo;
         
         /// <summary>
-        /// lblEspCom control.
+        /// ddlCargo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEspCom;
-        
-        /// <summary>
-        /// ddlEspecialidades control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlEspecialidades;
+        protected global::System.Web.UI.WebControls.DropDownList ddlCargo;
         
         /// <summary>
         /// RequiredFieldValidator3 control.
@@ -130,40 +121,13 @@ namespace UI_Web {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
-        /// lblPlanCom control.
+        /// gridActionsPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlanCom;
-        
-        /// <summary>
-        /// ddlPlanes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlPlanes;
-        
-        /// <summary>
-        /// RequiredFieldValidator4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
-        
-        /// <summary>
-        /// gridActionPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel gridActionPanel;
+        protected global::System.Web.UI.WebControls.Panel gridActionsPanel;
         
         /// <summary>
         /// lnkNuevo control.
@@ -184,22 +148,22 @@ namespace UI_Web {
         protected global::System.Web.UI.WebControls.LinkButton lnkEditar;
         
         /// <summary>
-        /// lnkBorrar control.
+        /// lnkEliminar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkBorrar;
+        protected global::System.Web.UI.WebControls.LinkButton lnkEliminar;
         
         /// <summary>
-        /// formActionPanel control.
+        /// formActionsPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel formActionPanel;
+        protected global::System.Web.UI.WebControls.Panel formActionsPanel;
         
         /// <summary>
         /// lnkAceptar control.

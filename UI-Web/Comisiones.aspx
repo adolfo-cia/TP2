@@ -11,8 +11,11 @@
                 <asp:BoundField DataField="AnioEspecialidad" HeaderText="Año de Especialidad">
                 <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundField>
-                <asp:BoundField DataField="idPlan" HeaderText="Plan" />
-                <asp:CommandField ShowSelectButton="True" />
+                <asp:BoundField DataField="DPlan" HeaderText="Plan" />
+                <asp:BoundField DataField="DEspecialidad" HeaderText="Especialidad" >
+                <ItemStyle HorizontalAlign="Center" />
+                </asp:BoundField>
+                <asp:CommandField ShowSelectButton="True" SelectText="Seleccionar" />
             </Columns>
 
             <EditRowStyle BackColor="#999999" />

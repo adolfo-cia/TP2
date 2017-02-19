@@ -11,53 +11,72 @@ namespace UI_Web
 {
     public partial class Comisiones : System.Web.UI.Page
     {
-        private ComisionLogic _logicComision;
-        private EspecialidadLogic _logicEspecialidades;
-        private PlanLogic _logicPlanes;
-        private CursoLogic _cursologic;  
+        #region variables y Getters/Setters
+        private ComisionLogic _comisionManager;
+        private CursoLogic _cursoManager;
+        private EspecialidadLogic _especialidadManager;
+        private PlanLogic _planManager;
+        enum FormModes
+        {
+            Alta,
+            Baja,
+            Modificacion
+        }
 
-        private Comision ComisionActual { get; set; }
-
-        private CursoLogic LogicCurso
+       
+        public ComisionLogic ComisionManager
         {
             get
             {
-                if (_cursologic == null)
+                if (_comisionManager == null)
+                    _comisionManager = new ComisionLogic();
+                return _comisionManager;
+            }
+        }
+        private CursoLogic CursoManager
+        {
+            get
+            {
+                if (_cursoManager == null)
                 {
-                    _cursologic = new CursoLogic();
+                    _cursoManager = new CursoLogic();
                 }
 
-                return _cursologic;
+                return _cursoManager;
             }
         }
-        public EspecialidadLogic LogicEspecialidades
+        public EspecialidadLogic EspecialidadManager
         {
             get
             {
-                if (_logicEspecialidades == null)
-                    _logicEspecialidades = new EspecialidadLogic();
-                return _logicEspecialidades;
+                if (_especialidadManager == null)
+                    _especialidadManager = new EspecialidadLogic();
+                return _especialidadManager;
             }
         }
-        public ComisionLogic LogicComision
+        public PlanLogic PlanManager
         {
             get
             {
-                if (_logicComision == null)
-                    _logicComision = new ComisionLogic();
-                return _logicComision;
+                if (_planManager == null)
+                    _planManager = new PlanLogic();
+                return _planManager;
             }
         }
+        FormModes FormMode
+        {
+            get
+            {
+                return (FormModes)this.ViewState["FormMode"];
+            }
+            set
+            {
+                this.ViewState["FormMode"] = value;
+            }
+        }
+        private Comision ComisionActual { get; set; }
+        #endregion
 
-        public PlanLogic LogicPlanes
-        {
-            get
-            {
-                if (_logicPlanes == null)
-                    _logicPlanes = new PlanLogic();
-                return _logicPlanes;
-            }
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -83,7 +102,7 @@ namespace UI_Web
         {
             try
             {
-                gridComisiones.DataSource = LogicComision.GetAll();
+                gridComisiones.DataSource = ComisionManager.GetAllComplete();
                 gridComisiones.DataBind();
             }
             catch (Exception ex)
@@ -110,7 +129,6 @@ namespace UI_Web
                 ViewState["SelectedID"] = value;
             }
         }
-
         private bool IsEntitySelected
         {
             get
@@ -127,31 +145,11 @@ namespace UI_Web
             gridActionPanel.Visible = true;
         }
 
-
-        enum FormModes
-        {
-            Alta,
-            Baja,
-            Modificacion
-        }
-
-        FormModes FormMode
-        {
-            get
-            {
-                return (FormModes)this.ViewState["FormMode"];
-            }
-            set
-            {
-                this.ViewState["FormMode"] = value;
-            }
-        }
-
         private void CargarEspecialidades()
         {
             try
             {
-                ddlEspecialidades.DataSource = LogicEspecialidades.GetAll();
+                ddlEspecialidades.DataSource = EspecialidadManager.GetAll();
                 ddlEspecialidades.DataValueField = "ID";
                 ddlEspecialidades.DataTextField = "Descripcion";
                 ddlEspecialidades.DataBind();
@@ -167,7 +165,7 @@ namespace UI_Web
         {
             try
             {
-                ddlPlanes.DataSource = LogicPlanes.GetAll();
+                ddlPlanes.DataSource = PlanManager.GetAll();
                 ddlPlanes.DataValueField = "ID";
                 ddlPlanes.DataTextField = "Descripcion";
                 ddlPlanes.DataBind();
@@ -179,23 +177,7 @@ namespace UI_Web
                 Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
             }
         }
-
-        //private void CargarPlanes()
-        //{
-        //    ddlPlanes.DataSource = LogicPlanes.GetAll();
-        //    ddlPlanes.DataValueField = "ID";
-        //    ddlPlanes.DataTextField = "Descripcion";
-        //    ddlPlanes.DataBind();
-        //}
-
-        //private void CargarEspecialidades()
-        //{
-        //    ddlEspecialidades.DataSource = LogicEspecialidades.GetAll();
-        //    ddlEspecialidades.DataValueField = "ID";
-        //    ddlEspecialidades.DataTextField = "Descripcion";
-        //    ddlEspecialidades.DataBind();
-        //}
-
+            
         private void CargarForm(int id)
         {
             CargarEspecialidades();
@@ -224,13 +206,13 @@ namespace UI_Web
             {
                 try
                 {
-                    ComisionActual = LogicComision.GetOne(id);
+                    ComisionActual = ComisionManager.GetOne(id);
 
                     txtAnioEsp.Text = ComisionActual.AnioEspecialidad.ToString();
                     txtDescCom.Text = ComisionActual.Descripcion;
 
-                    Plan p = LogicPlanes.GetOne(ComisionActual.IDPlan);
-                    ddlEspecialidades.SelectedValue = LogicEspecialidades.GetOne(p.IDEspecialidad).ID.ToString();
+                    Plan p = PlanManager.GetOne(ComisionActual.IDPlan);
+                    ddlEspecialidades.SelectedValue = EspecialidadManager.GetOne(p.IDEspecialidad).ID.ToString();
 
                     ddlEspecialidades_SelectedIndexChanged(null, null);
                     ddlPlanes.SelectedValue = ComisionActual.IDPlan.ToString();
@@ -262,7 +244,7 @@ namespace UI_Web
                 {
                     // Verificamos que la comision seleccionada no este referenciada por ningun curso
                     // si lo esta, no permitimos la edicion de la materia
-                    List<Curso> cursos = LogicCurso.GetAll().Where(curso => curso.IDComision == SelectedID).ToList();
+                    List<Curso> cursos = CursoManager.GetAll().Where(curso => curso.IDComision == SelectedID).ToList();
 
                     if (cursos.Count == 0)
                     {
@@ -295,7 +277,7 @@ namespace UI_Web
                 {
                     // Verificamos que la comision seleccionada no este referenciada por ningun curso
                     // si lo esta, no permitimos la eliminacion de la materia
-                    List<Curso> cursos = LogicCurso.GetAll().Where(curso => curso.IDComision == SelectedID).ToList();
+                    List<Curso> cursos = CursoManager.GetAll().Where(curso => curso.IDComision == SelectedID).ToList();
 
                     if (cursos.Count == 0)
                     {
@@ -326,7 +308,6 @@ namespace UI_Web
 
             if (FormMode == FormModes.Alta)
             {
-               // ComisionActual.Baja = false;
                 ComisionActual.State = BusinessEntity.States.New;
             }
             if (FormMode == FormModes.Baja || FormMode == FormModes.Modificacion)
@@ -336,12 +317,10 @@ namespace UI_Web
 
                 if (FormMode == FormModes.Baja)
                 {
-                    // ComisionActual.Baja = true;
                     ComisionActual.State = BusinessEntity.States.Deleted;
                 }
                 else
                 {
-                    // ComisionActual.Baja = false;
                     ComisionActual.State = BusinessEntity.States.Modified;
                 }
             }
@@ -352,9 +331,9 @@ namespace UI_Web
             ComisionActual.IDPlan= Convert.ToInt32(ddlPlanes.SelectedValue);
         }
 
-        private void GuardarComision(Comision com)
+        private void SaveComision(Comision com)
         {
-            LogicComision.Save(com);
+            ComisionManager.Save(com);
         }
 
         protected void lnkAceptar_Click(object sender, EventArgs e)
@@ -364,7 +343,7 @@ namespace UI_Web
             gridActionPanel.Visible = true;
 
             CargarComision();
-            GuardarComision(ComisionActual);
+            SaveComision(ComisionActual);
             CargarGrilla();
 
             gridComisiones.SelectedIndex = -1;
@@ -385,7 +364,7 @@ namespace UI_Web
         {
             try
             {
-                ddlPlanes.DataSource = LogicPlanes.GetAll().Where(plan => plan.IDEspecialidad == int.Parse(ddlEspecialidades.SelectedValue));
+                ddlPlanes.DataSource = PlanManager.GetAll().Where(plan => plan.IDEspecialidad == int.Parse(ddlEspecialidades.SelectedValue));
                 ddlPlanes.DataBind();
             }
             catch (Exception ex)

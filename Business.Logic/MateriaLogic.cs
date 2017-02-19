@@ -33,6 +33,22 @@ namespace Business.Logic
             }
             
         }
+
+        public List<MateriaComplete> GetAllComplete()
+        {
+            try
+            {
+                return MateriaData.GetAllComplete();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+
         public Materia GetOne(int id) 
         {
             try
@@ -48,7 +64,16 @@ namespace Business.Logic
         }
         public void Save(Materia Materia)
         {
-            MateriaData.Save(Materia);
+            try
+            {
+                MateriaData.Save(Materia);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+           
         }
         public void Delete(int id)
         {

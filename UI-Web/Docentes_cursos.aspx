@@ -1,18 +1,20 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Cursos.aspx.cs" Inherits="UI_Web.Cursos" %>
-<asp:Content ID="Content4" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
-    <asp:Panel ID="gridPanel" runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Docentes_cursos.aspx.cs" Inherits="UI_Web.Docentes_cursos" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
+
+     <asp:Panel ID="gridPanel" runat="server">
        <%-- <table style="width:100%;">
             <tr>
                 <td class="auto-style1" style="width: 263px">&nbsp;</td>
                 <td style="width: 536px">--%>
-                    <asp:GridView ID="gdvCursos" runat="server" SkinID="Professional" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="ID" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="gdvCursos_SelectedIndexChanged" Width="506px"
-                        HeaderStyle-HorizontalAlign ="Left">
+                    <asp:GridView ID="gridDocenteCurso" runat="server" SkinID="Professional" AutoGenerateColumns="False" CellPadding="4" DataKeyNames="ID" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="gridDocenteCurso_SelectedIndexChanged" Width="506px"
+                        HeaderStyle-HorizontalAlign ="Left" style="margin-right: 0px">
                         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                         <Columns>
+                            <asp:BoundField DataField="NombreCompleto" HeaderText="Profesor" />
+                            <asp:BoundField DataField="Cargo" HeaderText="Cargo" />
                             <asp:BoundField DataField="DMateria" HeaderText="Materia" />
                             <asp:BoundField DataField="DComision" HeaderText="Comision" />
                             <asp:BoundField DataField="AnioCalendario" HeaderText="Año Calendario" />
-                            <asp:BoundField DataField="Cupo" HeaderText="Cupo" />
                             <asp:CommandField SelectText="Seleccionar" ShowSelectButton="true" />
                         </Columns>
                         <EditRowStyle BackColor="#999999" />
@@ -37,26 +39,21 @@
             <tr>
                 <td class="auto-style1" style="width: 263px">&nbsp;</td>
                 <td style="width: 536px">--%>
-                    <asp:Panel ID="formPanelCurso" runat="server" Visible="false">
-                        <asp:Label ID="lblMateria" runat="server" Text="Materia: "></asp:Label>
-                        <asp:DropDownList ID="ddlMaterias" runat="server" OnSelectedIndexChanged="ddlMaterias_SelectedIndexChanged" AutoPostBack="true">
+                    <asp:Panel ID="formPanelDocenteCurso" runat="server" Visible="false">
+                        <asp:Label ID="lblDocente" runat="server" Text="Docente:"></asp:Label>
+                        <asp:DropDownList ID="ddlDocente" runat="server" AutoPostBack="true">
                         </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlMaterias" Display="Dynamic" ErrorMessage="La materia es requerida" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="ddlDocente" Display="Dynamic" ErrorMessage="El Docente es requerido" ForeColor="Red"></asp:RequiredFieldValidator>
                         <br />
-                        <asp:Label ID="lblComision" runat="server" Text="Comision: "></asp:Label>
-                        <asp:DropDownList ID="ddlComisiones" runat="server">
+                        <asp:Label ID="lblCurso" runat="server" Text="Curso:"></asp:Label>
+                        <asp:DropDownList ID="ddlCurso" runat="server">
                         </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlComisiones" Display="Dynamic" ErrorMessage="La comision es requerida" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="ddlCurso" Display="Dynamic" ErrorMessage="El Curso es requerido" ForeColor="Red"></asp:RequiredFieldValidator>
                         <br />
-                        <asp:Label ID="lblAnioCalendario" runat="server" Text="Año Calendario: "></asp:Label>
-                        <asp:DropDownList ID="ddlAnioCalendario" runat="server" ClientIDMode="Static">
+                        <asp:Label ID="lblCargo" runat="server" Text="Cargo:"></asp:Label>
+                        <asp:DropDownList ID="ddlCargo" runat="server" ClientIDMode="Static">
                         </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlAnioCalendario" Display="Dynamic" ErrorMessage="El año es requerido" ForeColor="Red"></asp:RequiredFieldValidator>
-                        <br />
-                        <asp:Label ID="lblCupo" runat="server" Text="Cupo: "></asp:Label>
-                        <asp:DropDownList ID="ddlCupo" runat="server">
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="ddlCupo" Display="Dynamic" ErrorMessage="El cupo es requerido" ForeColor="Red"></asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ddlCargo" Display="Dynamic" ErrorMessage="El cargo es requerido" ForeColor="Red"></asp:RequiredFieldValidator>
                         <br />
                     </asp:Panel>
                     <asp:Panel ID="gridActionsPanel" runat="server">
@@ -67,9 +64,6 @@
                     <asp:Panel ID="formActionsPanel" runat="server" Visible="false">
                         <asp:LinkButton ID="lnkAceptar" runat="server" OnClick="lnkAceptar_Click">Aceptar</asp:LinkButton>
                         <asp:LinkButton ID="lnkCancelar" runat="server" OnClick="lnkCancelar_Click" CausesValidation="False">Cancelar</asp:LinkButton>
-                    </asp:Panel>
-                    <asp:Panel ID="reportePanel" runat="server" Visible="true">
-                            <asp:LinkButton ID="lnkReporte" runat="server" OnClick="lnkReporte_Click">Crear reporte</asp:LinkButton>
                     </asp:Panel>
     <%--            </td>
                 <td>&nbsp;</td>

@@ -25,6 +25,9 @@
         <asp:HyperLink ID="hlkCursos" runat="server" NavigateUrl="~/Cursos.aspx">Administrar Cursos</asp:HyperLink>
         <br />
         <br />
+        <asp:HyperLink ID="hlkDocenteCurso" runat="server" NavigateUrl="~/Docentes_cursos.aspx">Administrar Docentes y cursos</asp:HyperLink>
+        <br />
+        <br />
         <br />
         <br />
         <br />

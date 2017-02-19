@@ -38,6 +38,21 @@ namespace Business.Logic
             }
             
         }
+
+        public List<PlanComplete> GetAllComplete()
+        {
+            try
+            {
+                return PlanData.GetAllComplete();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
         public Plan GetOne(int id) 
         {
             try
@@ -53,7 +68,16 @@ namespace Business.Logic
         }
         public void Save(Plan plan)
         {
-            PlanData.Save(plan);
+            try
+            {
+                PlanData.Save(plan);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
         public void Delete(int id)
         {

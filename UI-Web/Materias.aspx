@@ -5,8 +5,8 @@
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
                 <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" />
-                <asp:BoundField DataField="HorasSemanales" HeaderText="Horas Semanales" />
-                <asp:BoundField DataField="HorasTotales" HeaderText="Horas Totales" />
+                <asp:BoundField DataField="HSSemanales" HeaderText="Horas Semanales" />
+                <asp:BoundField DataField="HSSTotales" HeaderText="Horas Totales" />
                 <asp:BoundField HeaderText="Plan" DataField="DPlan" />
                 <asp:BoundField HeaderText="Especialidad" DataField="DEspecialidad" />
                 <asp:CommandField SelectText="Seleccionar" ShowSelectButton="True" />

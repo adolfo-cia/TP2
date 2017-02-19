@@ -77,7 +77,12 @@ namespace Business.Entities
 
 
 
+        //para los dropdownlist
 
+        public string NombreCompleto
+        {
+            get { return this.Apellido + ", " + this.Nombre;  }
+        }
 
 
 

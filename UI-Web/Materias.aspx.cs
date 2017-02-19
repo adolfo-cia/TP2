@@ -11,87 +11,80 @@ namespace UI_Web
 {
     public partial class Materias : System.Web.UI.Page
     {
-        private PlanLogic _planLogic;
-        private EspecialidadLogic _especialidadLogic;
-        private MateriaLogic _materiaLogic;
-        private CursoLogic _cursologic;
+        #region variables y Getters/Setters
+        private PlanLogic _planManager;
+        private EspecialidadLogic _especialidadManager;
+        private MateriaLogic _materiaManager;
+        private CursoLogic _cursoManager;
+        enum FormModes
+        {
+            Alta,
+            Modificacion,
+            Baja,
+        }
 
+        private PlanLogic PlanManager
+        {
+            get
+            {
+                if (_planManager == null)
+                {
+                    _planManager = new PlanLogic();
+                }
+
+                return _planManager;
+            }
+        }
+        private EspecialidadLogic EspecialidadManager
+        {
+            get
+            {
+                if (_especialidadManager == null)
+                {
+                    _especialidadManager = new EspecialidadLogic();
+                }
+
+                return _especialidadManager;
+            }
+        }
+        private MateriaLogic MateriaManager
+        {
+            get
+            {
+                if (_materiaManager == null)
+                {
+                    _materiaManager = new MateriaLogic(); 
+                }
+
+                return _materiaManager;
+            }
+        }
+        private CursoLogic CursoManager
+        {
+            get
+            {
+                if (_cursoManager == null)
+                {
+                    _cursoManager = new CursoLogic();
+                }
+
+                return _cursoManager;
+            }
+        }
+        FormModes FormMode
+        {
+            get
+            {
+                return (FormModes)this.ViewState["FormMode"];
+            }
+            set
+            {
+                this.ViewState["FormMode"] = value;
+            }
+        }
         private Materia MateriaActual { get; set; }
+        #endregion
 
-        private CursoLogic LogicCurso
-        {
-            get
-            {
-                if (_cursologic == null)
-                {
-                    _cursologic = new CursoLogic();
-                }
-
-                return _cursologic;
-            }
-        }
-        private PlanLogic LogicPlan
-        {
-            get
-            {
-                if (_planLogic == null)
-                {
-                    _planLogic = new PlanLogic();
-                }
-
-                return _planLogic;
-            }
-        }
-        private EspecialidadLogic LogicEspecialidad
-        {
-            get
-            {
-                if (_especialidadLogic == null)
-                {
-                    _especialidadLogic = new EspecialidadLogic();
-                }
-
-                return _especialidadLogic;
-            }
-        }
-        private MateriaLogic LogicMateria
-        {
-            get
-            {
-                if (_materiaLogic == null)
-                {
-                    _materiaLogic = new MateriaLogic(); 
-                }
-
-                return _materiaLogic;
-            }
-        }
-
-        private void CargarGridMaterias()
-        {
-            try
-            {
-                var materias = LogicMateria.GetAll();
-
-                // se reemplaza cada plan en planes con un objeto anonimo de la forma {ID, Descripcion, DEspecialidad}
-                // donde ID es la id del plan, Descripcion es la descripcion del plan y DEspecialidad es la descripcion de la especialidad del plan
-                gridMaterias.DataSource = materias.Select(mat => new
-                {
-                    ID = mat.ID,
-                    Descripcion = mat.Descripcion,
-                    HorasSemanales = mat.HSSemanales,
-                    HorasTotales = mat.HSSTotales,
-                    DPlan = LogicPlan.GetOne(mat.IDPlan).Descripcion,
-                    DEspecialidad = LogicEspecialidad.GetOne(LogicPlan.GetOne(mat.IDPlan).IDEspecialidad).Descripcion
-                });
-
-                gridMaterias.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
-            }
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -99,7 +92,7 @@ namespace UI_Web
             {
                 if ((Persona.TipoPersona)Session["RolSesion"] == Persona.TipoPersona.Administrativo)
                 {
-                    CargarGridMaterias();
+                    CargarGrilla();
                 }
                 else
                 {
@@ -113,7 +106,63 @@ namespace UI_Web
             }
 
         }
+        private void CargarGrilla()
+        {
+            try
+            {
+                //var materias = MateriaManager.GetAll();
+                var materias = MateriaManager.GetAllComplete();
+                //Esto es una negrada, habria q pedir la entidad completa al Manager, y este al DAO.
+                //TODO: hacer el el GetAllComplete()
+                //gridMaterias.DataSource = materias.Select(mat => new
+                //{
+                //    ID = mat.ID,
+                //    Descripcion = mat.Descripcion,
+                //    HorasSemanales = mat.HSSemanales,
+                //    HorasTotales = mat.HSSTotales,
+                //    DPlan = PlanManager.GetOne(mat.IDPlan).Descripcion,
+                //    DEspecialidad = EspecialidadManager.GetOne(PlanManager.GetOne(mat.IDPlan).IDEspecialidad).Descripcion
+                //});
+                gridMaterias.DataSource = materias;
 
+                gridMaterias.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
+            }
+        }
+        private void CargarPlanes()
+        {
+            try
+            {
+                ddlPlan.DataSource = PlanManager.GetAll();
+                ddlPlan.DataValueField = "ID";
+                ddlPlan.DataTextField = "Descripcion";
+                ddlPlan.DataBind();
+
+                ddlEspecialidad_SelectedIndexChanged(null, null);
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
+            }
+        }
+        private void CargarEspecialidades()
+        {
+            try
+            {
+                ddlEspecialidad.DataSource = EspecialidadManager.GetAll();
+                ddlEspecialidad.DataValueField = "ID";
+                ddlEspecialidad.DataTextField = "Descripcion";
+                ddlEspecialidad.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
+            }
+        }
+        
         private int? SelectedID
         {
             get
@@ -132,65 +181,16 @@ namespace UI_Web
                 ViewState["SelectedID"] = value;
             }
         }
-
         private bool HaySeleccion()
         {
             return (SelectedID != -1);
         }
-        private void CargarPlanes()
-        {
-            try
-            {
-                ddlPlan.DataSource = LogicPlan.GetAll();
-                ddlPlan.DataValueField = "ID";
-                ddlPlan.DataTextField = "Descripcion";
-                ddlPlan.DataBind();
-
-                ddlEspecialidad_SelectedIndexChanged(null, null);
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
-            }
-        }
-
-        private void CargarEspecialidades()
-        {
-            try
-            {
-                ddlEspecialidad.DataSource = LogicEspecialidad.GetAll();
-                ddlEspecialidad.DataValueField = "ID";
-                ddlEspecialidad.DataTextField = "Descripcion";
-                ddlEspecialidad.DataBind();
-            }
-            catch (Exception ex)
-            {
-                Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
-            }
-        }
-
-        enum FormModes
-        {
-            Alta,
-            Modificacion,
-            Baja,
-        }
-
-        FormModes FormMode
-        {
-            get
-            {
-                return (FormModes)this.ViewState["FormMode"];
-            }
-            set
-            {
-                this.ViewState["FormMode"] = value;
-            }
-        }
+        
+       
 
         private void CargarMateria()
         {
-            MateriaActual = new Materia();
+          
 
             if (FormMode == FormModes.Baja)
             {
@@ -199,6 +199,8 @@ namespace UI_Web
                 txtHorasTotales.Enabled = false;
                 ddlEspecialidad.Enabled = false;
                 ddlPlan.Enabled = false;
+                MateriaActual = (Materia)Session["MateriaActual"];
+                MateriaActual.State = BusinessEntity.States.Deleted;
             }
             if (FormMode == FormModes.Modificacion)
             {
@@ -207,6 +209,13 @@ namespace UI_Web
                 txtHorasTotales.Enabled = true;
                 ddlEspecialidad.Enabled = true;
                 ddlPlan.Enabled = true;
+                MateriaActual = (Materia)Session["MateriaActual"];
+                MateriaActual.State = BusinessEntity.States.Modified;
+            }
+            if (FormMode == FormModes.Alta)
+            {
+                MateriaActual = new Materia();
+                MateriaActual.State = BusinessEntity.States.New;
             }
 
             MateriaActual.Descripcion = txtDescripcion.Text;
@@ -215,11 +224,11 @@ namespace UI_Web
             MateriaActual.IDPlan = int.Parse(ddlPlan.SelectedValue);
         }
 
-        private void GuardarMateria(Materia mat)
+        private void SaveMateria(Materia mat)
         {
             try
             {
-                LogicMateria.Save(mat);
+                MateriaManager.Save(mat);
             }
             catch (Exception ex)
             {
@@ -257,13 +266,13 @@ namespace UI_Web
             {
                 try
                 {
-                    MateriaActual = LogicMateria.GetOne(id);
-
+                    MateriaActual = MateriaManager.GetOne(id);
+                    Session["MateriaActual"] = MateriaActual;
                     txtDescripcion.Text = MateriaActual.Descripcion;
                     txtHorasSemanales.Text = MateriaActual.HSSemanales.ToString();
                     txtHorasTotales.Text = MateriaActual.HSSTotales.ToString();
 
-                    ddlEspecialidad.SelectedValue = LogicEspecialidad.GetAll().Find(esp => esp.ID == LogicPlan.GetOne(MateriaActual.IDPlan).IDEspecialidad).ID.ToString();
+                    ddlEspecialidad.SelectedValue = EspecialidadManager.GetAll().Find(esp => esp.ID == PlanManager.GetOne(MateriaActual.IDPlan).IDEspecialidad).ID.ToString();
                     ddlEspecialidad_SelectedIndexChanged(null, null);
 
                     ddlPlan.SelectedValue = MateriaActual.IDPlan.ToString();
@@ -293,7 +302,7 @@ namespace UI_Web
                 // si lo esta, no permitimos la edicion de la materia
                 try
                 {
-                    List<Curso> cursos = LogicCurso.GetAll().Where(curso => curso.IDMateria == SelectedID).ToList();
+                    List<Curso> cursos = CursoManager.GetAll().Where(curso => curso.IDMateria == SelectedID).ToList();
 
                     if (cursos.Count == 0)
                     {
@@ -325,7 +334,7 @@ namespace UI_Web
                 // si lo esta, no permitimos la eliminacion de la materia
                 try
                 {
-                    List<Curso> cursos = LogicCurso.GetAll().Where(curso => curso.IDMateria == SelectedID).ToList();
+                    List<Curso> cursos = CursoManager.GetAll().Where(curso => curso.IDMateria == SelectedID).ToList();
 
                     if (cursos.Count == 0)
                     {
@@ -357,8 +366,8 @@ namespace UI_Web
             gridMateriasActionPanel.Visible = true;
 
             CargarMateria();
-            GuardarMateria(MateriaActual);
-            CargarGridMaterias();
+            SaveMateria(MateriaActual);
+            CargarGrilla();
 
             gridMaterias.SelectedIndex = -1;
             gridMaterias_SelectedIndexChanged(null, null);
@@ -386,7 +395,7 @@ namespace UI_Web
         {
             try
             {
-                ddlPlan.DataSource = LogicPlan.GetAll().Where(plan => plan.IDEspecialidad == int.Parse(ddlEspecialidad.SelectedValue));
+                ddlPlan.DataSource = PlanManager.GetAll().Where(plan => plan.IDEspecialidad == int.Parse(ddlEspecialidad.SelectedValue));
                 ddlPlan.DataBind();
             }
             catch (Exception ex)

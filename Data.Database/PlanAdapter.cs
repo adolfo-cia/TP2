@@ -48,6 +48,46 @@ namespace Data.Database
             }
             return planes;
         }
+
+        public List<PlanComplete> GetAllComplete()
+        {
+            List<PlanComplete> planes = new List<PlanComplete>();
+            try
+            {
+                this.OpenConnection();
+
+                SqlCommand cmdPlanes = new SqlCommand(@"SELECT  p.id_plan, p.desc_plan, e.id_especialidad, e.desc_especialidad 
+                                                        FROM planes AS p
+                                                        JOIN especialidades AS e 
+                                                            ON p.id_especialidad = e.id_especialidad", sqlConn);
+
+                SqlDataReader drPlanes = cmdPlanes.ExecuteReader();
+
+                while (drPlanes.Read())
+                {
+                    PlanComplete p = new PlanComplete();
+                    p.ID = (int)drPlanes["id_plan"];
+                    p.Descripcion = (string)drPlanes["desc_plan"];
+                    p.IDEspecialidad = (int)drPlanes["id_especialidad"];
+                    p.DEspecialidad = (string)drPlanes["desc_especialidad"];
+                    planes.Add(p);
+                }
+
+                drPlanes.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Exception ExcepcionManejada = new Exception("Error al recuperar lista de Planes", ex);
+                throw ExcepcionManejada;
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return planes;
+        }
+
         public Plan GetOne(int ID)
         {
             Plan p = new Plan();
