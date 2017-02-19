@@ -48,6 +48,64 @@ namespace Data.Database
             }
             return docCur;
         }
+
+        public List<DocenteCursoComplete> GetAllComplete()
+        {
+            List<DocenteCursoComplete> docCur = new List<DocenteCursoComplete>();
+            try
+            {
+                this.OpenConnection();
+
+                SqlCommand cmdDocCur = new SqlCommand(@"select dc.id_dictado, 
+                                                                dc.id_curso, 
+                                                                com.desc_comision, 
+                                                                m.desc_materia,
+                                                                c.anio_calendario,
+                                                                dc.id_docente,
+                                                                p.nombre,
+                                                                p.apellido,
+                                                                dc.cargo,
+                                                                com.anio_especialidad
+                                                        from docentes_cursos dc
+                                                        join personas p on dc.id_docente = p.id_persona
+                                                        join cursos c on dc.id_curso = c.id_curso
+                                                        join comisiones com on c.id_comision = com.id_comision
+                                                        join materias m on c.id_materia = m.id_materia;", sqlConn);
+
+                SqlDataReader drDocCur = cmdDocCur.ExecuteReader();
+
+                while (drDocCur.Read())
+                {
+                    DocenteCursoComplete dc = new DocenteCursoComplete();
+                    dc.ID = (int)drDocCur["id_dictado"];
+                    dc.IDCurso = (int)drDocCur["id_curso"];
+                    dc.DComision = (string)drDocCur["desc_comision"];
+                    dc.DMateria = (string)drDocCur["desc_materia"];
+                    dc.AnioCalendario = (int)drDocCur["anio_calendario"];
+                    dc.AnioEspecialidad = (int)drDocCur["anio_especialidad"];
+                    dc.IDDocente = (int)drDocCur["id_docente"];
+                    dc.Nombre = (string)drDocCur["nombre"];
+                    dc.Apellido = (string)drDocCur["apellido"];
+                    dc.Cargo = (DocenteCursoComplete.TipoCargo)drDocCur["cargo"];
+                    docCur.Add(dc);
+                }
+
+                drDocCur.Close();
+
+            }
+            catch (Exception ex)
+            {
+                Exception ExcepcionManejada = new Exception("Error al recuperar lista de Curos del docente de la DB", ex);
+                throw ExcepcionManejada;
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return docCur;
+        }
+
+
         public DocenteCurso GetOne(int ID)
         {
             DocenteCurso dc = new DocenteCurso();
@@ -111,7 +169,7 @@ namespace Data.Database
 
                 cmdSave.Parameters.Add("@id_curso", SqlDbType.Int).Value = dc.IDCurso;
                 cmdSave.Parameters.Add("@id_docente", SqlDbType.Int).Value = dc.IDDocente;
-                cmdSave.Parameters.Add("@cargo", SqlDbType.VarChar, 50).Value = dc.Cargo;
+                cmdSave.Parameters.Add("@cargo", SqlDbType.Int).Value = (int)dc.Cargo;
 
                 dc.ID = Decimal.ToInt32((decimal)cmdSave.ExecuteScalar()); 
 
@@ -131,7 +189,7 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
-                SqlCommand cmdSave = new SqlCommand(@"UPDATE comisiones SET 
+                SqlCommand cmdSave = new SqlCommand(@"UPDATE docentes_cursos SET 
                                                         id_curso = @id_curso,
                                                         id_docente = @id_docente,
                                                         cargo = @cargo
@@ -141,7 +199,7 @@ namespace Data.Database
                 cmdSave.Parameters.Add("@id", SqlDbType.Int).Value = dc.ID;
                 cmdSave.Parameters.Add("@id_curso", SqlDbType.Int).Value = dc.IDCurso;
                 cmdSave.Parameters.Add("@id_docente", SqlDbType.Int).Value = dc.IDDocente;
-                cmdSave.Parameters.Add("@cargo", SqlDbType.VarChar, 50).Value = dc.Cargo;
+                cmdSave.Parameters.Add("@cargo", SqlDbType.Int).Value = (int)dc.Cargo;
 
                 cmdSave.ExecuteNonQuery();
             }

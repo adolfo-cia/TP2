@@ -72,6 +72,7 @@ namespace Data.Database
                     c.IDComision = (int)drCursos["id_comision"];
                     c.DComision = (string)drCursos["desc_comision"];
                     c.AnioCalendario = (int)drCursos["anio_calendario"];
+                    c.AnioEspecialidad = (int)drCursos["anio_especialidad"];
                     c.Cupo = (int)drCursos["cupo"];
                     cursos.Add(c);
                 }

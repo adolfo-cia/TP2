@@ -49,7 +49,12 @@ namespace Business.Entities
     {
         public string DMateria { get; set; }
         public string DComision { get; set; }
+        public int AnioEspecialidad { get; set; }
 
+        public string EnString
+        {
+            get { return this.DMateria + " - " + this.AnioEspecialidad +" - " + this.DComision + " - " + this.AnioCalendario.ToString(); }
+        }
 
     }
 

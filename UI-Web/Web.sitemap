@@ -8,5 +8,6 @@
         <siteMapNode url="~/Cursos.aspx" title="Cursos" description="" />
         <siteMapNode url="~/Comisiones.aspx" title="Comisiones" description="" />
         <siteMapNode url="~/AlumnoInscripciones.aspx" title="Inscripciones a Cursos" description="" />
+      <siteMapNode url="~/Docentes_cursos.aspx" title="Inscripcion de un Docente" description="" />
     </siteMapNode>
 </siteMap>

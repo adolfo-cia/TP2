@@ -33,6 +33,22 @@ namespace Business.Logic
             }
             
         }
+
+        public List<DocenteCursoComplete> GetAllComplete()
+        {
+            try
+            {
+                return DocenteCursoData.GetAllComplete();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+
         public DocenteCurso GetOne(int id) 
         {
             try
@@ -48,7 +64,16 @@ namespace Business.Logic
         }
         public void Save(DocenteCurso plan)
         {
-            DocenteCursoData.Save(plan);
+            try
+            {
+                DocenteCursoData.Save(plan);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
         public void Delete(int id)
         {

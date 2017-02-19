@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Business.Logic;
 using Business.Entities;
+using Microsoft.Reporting.WebForms;
 
 namespace UI_Web
 {
@@ -280,6 +281,34 @@ namespace UI_Web
 
         protected void lnkReporte_Click(object sender, EventArgs e)
         {
+            Warning[] warnings;
+            string[] streamIds;
+            string mimeType = string.Empty;
+            string encoding = string.Empty;
+            string extension = string.Empty;
+
+
+            // Setup the report viewer object and get the array of bytes
+            ReportViewer viewer = new ReportViewer();
+            viewer.ProcessingMode = ProcessingMode.Local;
+            viewer.LocalReport.ReportPath = "Reportes/planesRDLC.rdlc";
+            //ReportDataSource ds = new ReportDataSource();
+            //ds.Name = "DataSetPlanes";
+           
+            //viewer.LocalReport.DataSources.Add( ds );
+
+
+            byte[] bytes = viewer.LocalReport.Render("PDF", null, out mimeType, out encoding, out extension, out streamIds, out warnings);
+
+
+            // Now that you have all the bytes representing the PDF report, buffer it and send it to the client.
+            Response.Buffer = true;
+            Response.Clear();
+            Response.ContentType = mimeType;
+            Response.AddHeader("content-disposition", "attachment; filename=" + "Reporte Planes" + "." + extension);
+            Response.BinaryWrite(bytes); // create the file
+            Response.Flush(); // send it to the client to download
+
             //   try
             // {
             //   PlanesReport rpt = new PlanesReport(PlanManager.GetAll());

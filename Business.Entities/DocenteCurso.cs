@@ -28,8 +28,27 @@ namespace Business.Entities
             get { return _IDDocente; }
             set { _IDDocente = value; }
         }
+    }
 
-      
+    public class DocenteCursoComplete : DocenteCurso
+    {
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string NombreCompleto
+        {
+            get { return Apellido + " " + Nombre; }
+            set { this.NombreCompleto = value; }
+        }
+
+        public string DComision { get; set; }
+        public string DMateria { get; set; }
+        public int AnioCalendario { get; set; }
+        public int AnioEspecialidad { get; set; }
+
+
 
     }
+
+
+
 }
