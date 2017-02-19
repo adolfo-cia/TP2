@@ -4,7 +4,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyContentPlaceHolder" runat="server">
     <asp:Panel ID="gridPanel" runat="server">
-        <asp:GridView ID="gridView" runat="server" AutoGenerateColumns="False" SkinID="Professional"
+        <asp:GridView ID="gridView" runat="server" AutoGenerateColumns="False" SkinID="Pro"
         DataKeyNames="ID" CellPadding="4" GridLines="None" Width="624px" OnSelectedIndexChanged="gridView_SelectedIndexChanged" ForeColor="#333333">
         <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
         <Columns>

@@ -39,6 +39,7 @@ namespace UI_Web
                         hlkMaterias.Visible = false;
                         hlkPlanes.Visible = false;
                         hlkUsuarios.Visible = false;
+                        hlkDocenteCurso.Visible = false;
                     }
                     if ((Persona.TipoPersona)Session["RolSesion"] == Persona.TipoPersona.Docente)
                     {
@@ -50,6 +51,7 @@ namespace UI_Web
                         hlkMaterias.Visible = false;
                         hlkPlanes.Visible = false;
                         hlkUsuarios.Visible = false;
+                        hlkDocenteCurso.Visible = false;
                     }
                 }
             }

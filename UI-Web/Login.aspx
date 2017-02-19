@@ -50,11 +50,10 @@
                     <asp:Image ID="Image1" runat="server" ImageUrl="~/Imagenes/utn.gif" />
                 </td>
                 <td class="auto-style4">
-                    <h2 align="center" class="titulo" style="color: rgb(0, 0, 255); font-family: 'Comic Sans MS'; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">Universidad Tecnológica Nacional<br />
+                    <h2 align="center" class="titulo" style="color: black; font-family: Arial; font-style: normal; font-variant: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">Universidad Tecnológica Nacional<br />
                         Facultad Regional Rosario</h2>
-                    <p align="center" class="titulo" style="color: rgb(0, 0, 255); font-family: 'Comic Sans MS'; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
+                    <p align="center" class="titulo" style="color: black; font-family: Arial; font-size: medium; font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 1; word-spacing: 0px; -webkit-text-stroke-width: 0px;">
                         Sistema Academia<br />
-                        Módulo de autogestión
                     </p>
                 </td>
                 <td class="auto-style1"></td>

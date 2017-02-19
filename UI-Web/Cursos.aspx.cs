@@ -138,9 +138,9 @@ namespace UI_Web
         {
             try
             {
-                ddlMaterias.DataSource = MateriaManager.GetAll();
+                ddlMaterias.DataSource = MateriaManager.GetAllComplete();
                 ddlMaterias.DataValueField = "ID";
-                ddlMaterias.DataTextField = "Descripcion";
+                ddlMaterias.DataTextField = "DescripcionCompleta";
                 ddlMaterias.DataBind();
 
                 ddlMaterias_SelectedIndexChanged(null, null);

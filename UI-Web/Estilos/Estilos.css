@@ -6,4 +6,10 @@
     background: white;
     vertical-align: middle;
     border: 5px solid blue;
+  
+}
+
+#bodyForm{
+    align-items:center;
+
 }

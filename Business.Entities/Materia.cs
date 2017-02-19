@@ -36,13 +36,23 @@ namespace Business.Entities
             set { _IDPlan = value; }
         }
 
+
+      
     }
+
+
 
     public class MateriaComplete : Materia
     {
         public string DPlan { get; set; }
         public int IDEspecialidad { get; set; }
         public string DEspecialidad { get; set; }
+
+        public string DescripcionCompleta
+        {
+            get { return this.Descripcion + " - " + this.DPlan + " - " + this.DEspecialidad;  }
+        }
+
     }
 
 
