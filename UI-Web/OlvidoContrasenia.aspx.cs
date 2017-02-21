@@ -45,7 +45,7 @@ namespace UI_Web
                     }
                     EnviarMail(per.Email, nuevacadena);
                     Page.ClientScript.RegisterStartupScript(this.GetType(),"Scripts","<script>alert('Correo enviado correctamente');</script>");
-                    per.Clave = Encoding.ASCII.GetString( Util.Hash.SHA256ConSal(nuevacadena, null));
+                    per.Clave = nuevacadena;
                     personaManager.Save(per);
                     Response.Redirect(@"~/Login.aspx");
                 }

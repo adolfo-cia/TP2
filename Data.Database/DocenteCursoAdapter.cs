@@ -17,11 +17,12 @@ namespace Data.Database
             try
             {
                 this.OpenConnection();
+                string query = "";
 
                 SqlCommand cmdDocCur = new SqlCommand(@"SELECT *
                                                         FROM docentes_cursos
                                                         WHERE id_docente = @id", sqlConn);
-
+                cmdDocCur.Parameters.Add("@id", SqlDbType.Int).Value = ID;
                 SqlDataReader drDocCur = cmdDocCur.ExecuteReader();
 
                 while (drDocCur.Read())

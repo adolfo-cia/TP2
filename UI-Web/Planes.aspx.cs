@@ -292,10 +292,10 @@ namespace UI_Web
             ReportViewer viewer = new ReportViewer();
             viewer.ProcessingMode = ProcessingMode.Local;
             viewer.LocalReport.ReportPath = "Reportes/planesRDLC.rdlc";
-            //ReportDataSource ds = new ReportDataSource();
-            //ds.Name = "DataSetPlanes";
+            ReportDataSource ds = new ReportDataSource("DataSetPlanes",  PlanManager.GetAllComplete());
+    
            
-            //viewer.LocalReport.DataSources.Add( ds );
+            viewer.LocalReport.DataSources.Add( ds);
 
 
             byte[] bytes = viewer.LocalReport.Render("PDF", null, out mimeType, out encoding, out extension, out streamIds, out warnings);
@@ -309,40 +309,7 @@ namespace UI_Web
             Response.BinaryWrite(bytes); // create the file
             Response.Flush(); // send it to the client to download
 
-            //   try
-            // {
-            //   PlanesReport rpt = new PlanesReport(PlanManager.GetAll());
-
-            // rpt.Run(false);
-            // Specify the appropriate viewer.
-            // If the report has been exported in a different format, the content-type will 
-            // need to be changed as noted in the following table:
-            //    ExportType  ContentType
-            //    PDF       "application/pdf"  (needs to be in lowercase)
-            //    RTF       "application/rtf"
-            //    TIFF      "image/tiff"       (will open in separate viewer instead of browser)
-            //    HTML      "message/rfc822"   (only applies to compressed HTML pages that includes images)
-            //    Excel     "application/vnd.ms-excel"
-            //    Excel     "application/excel" (either of these types should work) 
-            //    Text      "text/plain"  
-            // Response.ContentType = "application/pdf";
-            // Response.Clear();
-            // Response.AddHeader("content-disposition", "inline;filename=MyPDF.PDF");
-            // Create the PDF export object.
-            // PdfExport pdf = new PdfExport();
-            // Create a new memory stream that will hold the pdf output
-            // System.IO.MemoryStream memStream = new System.IO.MemoryStream();
-            // Export the report to PDF.
-            // pdf.Export(rpt.Document, memStream);
-            // Write the PDF stream to the output stream.
-            // Response.BinaryWrite(memStream.ToArray());
-            // Send all buffered content to the client
-            // Response.End();
-            // }
-            // catch (Exception ex)
-            // {
-            //     Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
-            // }
+         
         }
 
         protected void gridPlanes_SelectedIndexChanged(object sender, EventArgs e)

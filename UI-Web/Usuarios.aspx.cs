@@ -7,7 +7,6 @@ using System.Web.UI.WebControls;
 using Business.Entities;
 using Business.Logic;
 using System.Globalization;
-//using System.Runtime.Serialization.Json;
 using System.IO;
 
 namespace UI_Web
@@ -67,11 +66,7 @@ namespace UI_Web
                 if ((Persona.TipoPersona)Session["RolSesion"] == Persona.TipoPersona.Administrativo)
                 {
                     CargarGrilla();
-                    //if (!IsPostBack)
-                    //{
-                    //    Util.Logger.LogHabilitado = false;
-
-                    //}
+                  
                 }
                 else
                 {
@@ -355,10 +350,9 @@ namespace UI_Web
         {
             try
             {
-                //string validacion=_personaManager.Save(per);
+               
                 _personaManager.Save(per);
-                //if (validacion.Length > 1)               
-                //    Response.Write(validacion);
+               
             }
             catch (Exception ex)
             {
@@ -450,54 +444,7 @@ namespace UI_Web
             args.IsValid = (args.Value.Length >= 8);
         }
 
-        protected void lnkSerializar_Click(object sender, EventArgs e)
-        {
-            //if (IsEntitySelected)
-            //{
-            //    try
-            //    {
-            //        Persona p = PersonaManager.GetOne(SelectedID.Value);
-
-            //        if (p.TipoPersona == Persona.TipoPersona.Alumno)
-            //        {
-            //            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Persona));
-            //            using (FileStream archivo = new FileStream(@"C:\Users\ANDRES\Desktop\alumno.json", FileMode.Create))
-            //            {
-            //                ser.WriteObject(archivo, p);
-            //            }
-            //        }
-            //        else
-            //        {
-            //            Response.Write("Solo se pueden serializar alumnos");
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {        
-            //        Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
-            //    }
-                
-            //}
-            
-        }
-
-        protected void lnkDeserializar_Click(object sender, EventArgs e)
-        {   
-            //try
-            //{
-            //    using (FileStream archivo = new FileStream(@"C:\alumno.json", FileMode.Open))
-            //    {
-            //        DataContractJsonSerializer serializadorJSON = new DataContractJsonSerializer(typeof(Persona));
-            //        Persona p = (Persona)serializadorJSON.ReadObject(archivo);
-            //        p.State = BusinessEntity.States.New;
-            //        FormMode = FormModes.Alta;
-            //        SaveEntity(p);
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Page.ClientScript.RegisterStartupScript(GetType(), "mensajeError", "mensajeError('" + ex.Message + "');", true);
-            //}
-        }
+       
         
     }
 }
