@@ -16,9 +16,10 @@ namespace UI.Desktop
     {
         public Planes()
         {
+            InitializeComponent();
             dgvPlanes.AutoGenerateColumns = false;
             dgvPlanes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            InitializeComponent();
+            
         }
 
         public void Listar()
@@ -44,7 +45,7 @@ namespace UI.Desktop
 
         private void tsbNuevo_Click(object sender, EventArgs e)
         {
-            UsuarioDesktop formPlanDesktop = new UsuarioDesktop(ApplicationForm.ModoForm.Alta);
+            PlanDesktop formPlanDesktop = new PlanDesktop(ApplicationForm.ModoForm.Alta);
             formPlanDesktop.Text = "Agregar Plan";
             formPlanDesktop.ShowDialog();
             this.Listar();

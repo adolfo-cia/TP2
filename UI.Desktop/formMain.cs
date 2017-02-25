@@ -51,17 +51,33 @@ namespace UI.Desktop
 
         private void mnuMaterias_Click(object sender, EventArgs e)
         {
-
+            if (TIPO != Persona.TipoPersona.Administrativo)
+            {
+                Notificar("Menu Especialidades", "No tiene permiso para acceder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Materias appMaterias = new Materias();
+                appMaterias.ShowDialog();
+            }
         }
 
         private void mnuComisiones_Click(object sender, EventArgs e)
         {
-
+           
         }
 
         private void mnuPlanes_Click(object sender, EventArgs e)
         {
-
+            if (TIPO != Persona.TipoPersona.Administrativo)
+            {
+                Notificar("Menu Especialidades", "No tiene permiso para acceder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                Planes appPlanes = new Planes();
+                appPlanes.ShowDialog();
+            }
         }
 
         private void mnuEspecialidades_Click(object sender, EventArgs e)
